@@ -46,7 +46,7 @@ class Map:
                                                                 self.top + self.cell_size * y),
                                                                (self.cell_size, self.cell_size)), 1)
 
-    def click(self, x1, y1):
+    def click(self, x1, y1, screen):
         if x1 <= self.left + self.cell_size * self.width and y1 <= self.top + self.cell_size * self.height \
                 and x1 >= self.left and y1 >= self.top:
             first_coord = (x1 - self.left) // self.cell_size
@@ -60,24 +60,3 @@ class Map:
             self.render(screen)
             return ''
         return None
-
-
-if __name__ == '__main__':
-    pygame.init()
-    pygame.display.set_caption('Mygame')
-    size = 1000, 800
-    screen = pygame.display.set_mode(size)
-    screen.fill(pygame.Color('black'))
-    pygame.display.flip()
-    board = Map(19, 15)
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x1, y1 = event.pos
-                print(board.click(x1, y1))
-        screen.fill((0, 0, 0))
-        board.render(screen)
-        pygame.display.flip()
