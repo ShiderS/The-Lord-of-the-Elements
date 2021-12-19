@@ -7,5 +7,8 @@ class Levels:
 
     def return_level(self, number_of_elements, level, name):
         fullname = os.path.join('levels', level, 'images', name)
-        x, y = 100, 100
+        file_open = open(os.path.join('levels', level, 'coords', name[:-4] + '_coords.txt')
+                         , encoding='utf8').read().splitlines()
+        x, y = file_open[0].split()
+        x, y = int(x), int(y)
         return fullname, x, y

@@ -13,6 +13,11 @@ if __name__ == '__main__':
 
     pygame.display.flip()
     textures = Textures(x, y)
+#    info_images = Level_characteristics(size[0], size[1]).render()
+    # берем из класса Levels местоположение текстурки и ее расположение на холсте
+#    for i in range(info_images[0]):
+#        fullname, x, y = Levels().return_level(info_images[0], info_images[1], info_images[2][i])
+#        Textures(x, y)
     # hero = Hero()
     running = True
 

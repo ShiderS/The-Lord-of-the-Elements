@@ -11,10 +11,10 @@ all_sprites = pygame.sprite.Group()
 horizontal_borders = pygame.sprite.Group()
 vertical_borders = pygame.sprite.Group()
 
-info = Level_characteristics(size[0], size[1]).render()
+info_images = Level_characteristics(size[0], size[1]).render()
 # берем из класса Levels местоположение текстурки и ее расположение на холсте
-for i in range(info[0]):
-    fullname, x, y = Levels().return_level(info[0], info[1], info[2][i])
+for i in range(info_images[0]):
+     fullname, x, y = Levels().return_level(info_images[0], info_images[1], info_images[2][i])
 
 
 # загрузка изображения
