@@ -20,33 +20,41 @@ def load_image(name, colorkey=None):
     return image
 
 
-all_sprites = pygame.sprite.Group()
+hero_sprites = pygame.sprite.Group()
 horizontal_borders = pygame.sprite.Group()
 vertical_borders = pygame.sprite.Group()
 
 
 class Hero(pygame.sprite.Sprite):
-    image = load_image("pers.png")
+    image = load_image("hero.png")
 
-    def __init__(self):
-        super().__init__(all_sprites)
+    def __init__(self, textures):
+        super().__init__(hero_sprites)
+
+        self.textures = textures
 
         # маска героя
         self.image = Hero.image
         self.rect = self.image.get_rect()
         # вычисляем маску для эффективного сравнения
         self.mask_stone_platform = pygame.mask.from_surface(self.image)
-        self.coord = self.x, self.y = 500, 400
+        self.coord = self.x, self.y = 200, 0
         self.rect.x = self.x
         self.rect.y = self.y
+
         self.damage = 25
         self.health = 100
 
-    def movement(self):
-        if self.x >= 0:
-            if key:
-                self.x += 1
-            if key:
-                self.x -= 1
-            if key:
-                self.y += 1
+    def update(self):
+        # если ещё в небе
+        if not pygame.sprite.collide_mask(self, self.textures):
+            self.rect = self.rect.move(0, 1)
+
+    def move_right(self):
+        self.rect.x += 5
+
+    def move_left(self):
+        self.rect.x -= 5
+
+    def move_upp(self):
+        self.rect.y -= 50

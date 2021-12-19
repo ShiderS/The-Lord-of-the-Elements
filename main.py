@@ -1,4 +1,5 @@
 from textures import *
+from hero import *
 from level_characteristics import *
 # from hero import *
 
@@ -22,15 +23,23 @@ if __name__ == '__main__':
     for i in range(len(info_images[1])):
         fullname, x, y = Levels().return_level(info_images[0], info_images[1][i])
         # создаем спрайт
-        Textures(fullname, x, y)
+        textures = Textures(fullname, x, y)
 
-    # hero = Hero()
+    hero = Hero(textures)
+
     running = True
 
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_d:
+                    hero.move_right()
+                elif event.key == pygame.K_a:
+                    hero.move_left()
+                elif event.key == pygame.K_w:
+                    hero.move_upp()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x1, y1 = event.pos
         screen.fill((66, 66, 61))
@@ -38,5 +47,7 @@ if __name__ == '__main__':
         vertical_borders.draw(screen)
         all_sprites.update()
         all_sprites.draw(screen)
+        hero_sprites.update()
+        hero_sprites.draw(screen)
         pygame.display.flip()
         clock.tick(144)
