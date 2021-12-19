@@ -8,5 +8,5 @@ class Level_characteristics:
         # значения по умолчанию
 
     def render(self):
-        number_of_elements, level, names = 2, 'level_1', ['stone_platform.png', 'wooden_platform.png']
-        return number_of_elements, level, names
+        level, names = 'level_1', ['stone_platform.png', 'wooden_platform.png', 'rock.png']
+        return level, names
