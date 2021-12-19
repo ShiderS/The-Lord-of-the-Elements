@@ -3,6 +3,9 @@ from level_characteristics import *
 # from hero import *
 
 
+level = 'level_1'
+
+
 if __name__ == '__main__':
     pygame.init()
     clock = pygame.time.Clock()
@@ -14,7 +17,7 @@ if __name__ == '__main__':
 
     pygame.display.flip()
 
-    info_images = Level_characteristics(size[0], size[1]).render()
+    info_images = Level_characteristics(size[0], size[1], level).render()
     # берем из класса Levels местоположение текстурки и ее расположение на холсте
     for i in range(len(info_images[1])):
         fullname, x, y = Levels().return_level(info_images[0], info_images[1][i])
