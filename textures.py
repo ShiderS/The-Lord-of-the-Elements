@@ -7,10 +7,13 @@ size = 1000, 800
 screen = pygame.display.set_mode(size)
 
 all_sprites = pygame.sprite.Group()
+horizontal_borders = pygame.sprite.Group()
+vertical_borders = pygame.sprite.Group()
 
 info = Map(size[0], size[1]).render()
 # берем из класса Levels местоположение текстурки и ее расположение на холсте
-fullname, x, y = Levels().return_level(*info)
+for i in range(info[0]):
+    fullname, x, y = Levels().return_level(info[0], info[1], info[2][i])
 
 
 # загрузка изображения
