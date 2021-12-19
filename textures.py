@@ -1,4 +1,4 @@
-import pygame, os, sys
+import pygame, sys
 from levels import *
 from Map import *
 

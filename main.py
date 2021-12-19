@@ -1,4 +1,3 @@
-import pygame
 from textures import *
 # from hero import *
 
@@ -24,6 +23,8 @@ if __name__ == '__main__':
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x1, y1 = event.pos
+        all_sprites.update()
+        all_sprites.draw(screen)
         screen.fill((0, 0, 0))
         pygame.display.flip()
         clock.tick(144)
