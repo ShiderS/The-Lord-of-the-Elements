@@ -26,25 +26,13 @@ class Map:
             for y in range(self.height):
                 if self.matrix[x][y] == 0:
                     pass
-                    # fill = (50, 50, 50)
-                    # stroke = (25, 25, 25)
                 elif self.matrix[x][y] == 1:
                     Stone_Textures(x, y)
-                    # fill = (100, 100, 100)
-                    # stroke = (70, 70, 70)
                 else:
                     Wooden_Textures(x, y)
-                    # fill = (0, 0, 0)
-                    # stroke = (0, 0, 0)
                 horizontal_borders.draw(screen)
                 vertical_borders.draw(screen)
                 all_sprites.draw(screen)
-                # pygame.draw.rect(screen, fill, ((self.left + self.cell_size * x,
-                #                                             self.top + self.cell_size * y),
-                #                                            (self.cell_size, self.cell_size)), 0)
-                # pygame.draw.rect(screen, stroke, ((self.left + self.cell_size * x,
-                #                                             self.top + self.cell_size * y),
-                #                                            (self.cell_size, self.cell_size)), 1)
 
     def click(self, x1, y1):
         if x1 <= self.left + self.cell_size * self.width and y1 <= self.top + self.cell_size * self.height \

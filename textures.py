@@ -31,16 +31,9 @@ vertical_borders = pygame.sprite.Group()
 
 class Stone_Textures(pygame.sprite.Sprite):
     stone_platform = load_image("stone_platform.png")
-    # wooden_platform = load_image('wooden_platform.png')
 
     def __init__(self, x, y):
         super().__init__(all_sprites)
-
-        # маска деревянной платформы
-        # self.wooden_platform = Textures.wooden_platform
-        # self.rect_wooden_platform = self.wooden_platform.get_rect()
-        # вычисляем маску для эффективного сравнения
-        # self.mask_wooden_platform = pygame.mask.from_surface(self.wooden_platform)
 
         # маска каменной платформы
         self.image = Stone_Textures.stone_platform

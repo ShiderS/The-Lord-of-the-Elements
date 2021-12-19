@@ -20,12 +20,25 @@ def load_image(name, colorkey=None):
     return image
 
 
+all_sprites = pygame.sprite.Group()
+horizontal_borders = pygame.sprite.Group()
+vertical_borders = pygame.sprite.Group()
+
+
 class Hero(pygame.sprite.Sprite):
     image = load_image("pers.png")
 
     def __init__(self):
         super().__init__(all_sprites)
-        self.coord = self.x, self.y = 525, 425
+
+        # маска героя
+        self.image = Hero.image
+        self.rect = self.image.get_rect()
+        # вычисляем маску для эффективного сравнения
+        self.mask_stone_platform = pygame.mask.from_surface(self.image)
+        self.coord = self.x, self.y = 500, 400
+        self.rect.x = self.x
+        self.rect.y = self.y
         self.damage = 25
         self.health = 100
 
