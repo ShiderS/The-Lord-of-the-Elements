@@ -13,7 +13,7 @@ if __name__ == '__main__':
     screen.fill((66, 66, 61))
 
     pygame.display.flip()
-    board = Textures(x, y)
+    textures = Textures(x, y)
     # hero = Hero()
     running = True
 

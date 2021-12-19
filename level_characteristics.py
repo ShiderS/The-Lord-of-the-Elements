@@ -1,4 +1,4 @@
-class Map:
+class Level_characteristics:
     # создание поля
     def __init__(self, width, height):
         self.matrix = []

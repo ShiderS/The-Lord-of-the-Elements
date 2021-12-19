@@ -1,16 +1,17 @@
 import pygame, sys
 from levels import *
-from Map import *
+from level_characteristics import *
 
 # настройки дисплея
 size = 1000, 800
 screen = pygame.display.set_mode(size)
 
+# спрайты
 all_sprites = pygame.sprite.Group()
 horizontal_borders = pygame.sprite.Group()
 vertical_borders = pygame.sprite.Group()
 
-info = Map(size[0], size[1]).render()
+info = Level_characteristics(size[0], size[1]).render()
 # берем из класса Levels местоположение текстурки и ее расположение на холсте
 for i in range(info[0]):
     fullname, x, y = Levels().return_level(info[0], info[1], info[2][i])
@@ -37,15 +38,15 @@ def load_image(fullname, colorkey=None):
 
 # отображение текстуры
 class Textures(pygame.sprite.Sprite):
-    stone_platform = load_image(fullname)
+    image = load_image(fullname)
 
     def __init__(self, x, y):
         super().__init__(all_sprites)
 
         # маска каменной платформы
-        self.image = Textures.stone_platform
-        self.rect = self.stone_platform.get_rect()
+        self.image = Textures.image
+        self.rect = self.image.get_rect()
         # вычисляем маску для эффективного сравнения
-        self.mask_stone_platform = pygame.mask.from_surface(self.image)
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect.x = x
         self.rect.y = y
