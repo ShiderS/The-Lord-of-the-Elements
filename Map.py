@@ -25,15 +25,15 @@ class Map:
         for x in range(self.width):
             for y in range(self.height):
                 if self.matrix[x][y] == 0:
-                    Stone_Textures(x, y)
+                    pass
                     # fill = (50, 50, 50)
                     # stroke = (25, 25, 25)
                 elif self.matrix[x][y] == 1:
-                    Wooden_Textures(x, y)
+                    Stone_Textures(x, y)
                     # fill = (100, 100, 100)
                     # stroke = (70, 70, 70)
                 else:
-                    Stone_Textures(x, y)
+                    Wooden_Textures(x, y)
                     # fill = (0, 0, 0)
                     # stroke = (0, 0, 0)
                 horizontal_borders.draw(screen)
