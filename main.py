@@ -11,7 +11,7 @@ if __name__ == '__main__':
     pygame.display.set_caption('Mygame')
     size = 1000, 800
     screen = pygame.display.set_mode(size)
-    screen.fill(pygame.Color('Black'))
+    screen.fill(pygame.Color('White'))
 
     pygame.display.flip()
 
@@ -25,8 +25,8 @@ if __name__ == '__main__':
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x1, y1 = event.pos
-                board.click(x1, y1, screen)
+                board.click(x1, y1)
         screen.fill((0, 0, 0))
-        board.render(screen)
+        board.render()
         pygame.display.flip()
         clock.tick(144)
