@@ -1,5 +1,5 @@
 import pygame
-from Map import *
+from textures import *
 # from hero import *
 
 
@@ -14,8 +14,7 @@ if __name__ == '__main__':
     screen.fill(pygame.Color('White'))
 
     pygame.display.flip()
-
-    board = Map(20, 16)
+    board = Textures(x, y)
     # hero = Hero()
     running = True
 
@@ -25,8 +24,6 @@ if __name__ == '__main__':
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x1, y1 = event.pos
-                board.click(x1, y1)
         screen.fill((0, 0, 0))
-        board.render()
         pygame.display.flip()
         clock.tick(144)
