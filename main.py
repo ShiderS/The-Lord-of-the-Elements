@@ -1,4 +1,5 @@
 from textures import *
+from level_characteristics import *
 # from hero import *
 
 
@@ -12,12 +13,14 @@ if __name__ == '__main__':
     screen.fill((66, 66, 61))
 
     pygame.display.flip()
-    textures = Textures(x, y)
-#    info_images = Level_characteristics(size[0], size[1]).render()
+
+    info_images = Level_characteristics(size[0], size[1]).render()
     # берем из класса Levels местоположение текстурки и ее расположение на холсте
-#    for i in range(info_images[0]):
-#        fullname, x, y = Levels().return_level(info_images[0], info_images[1], info_images[2][i])
-#        Textures(x, y)
+    for i in range(info_images[0]):
+        fullname, x, y = Levels().return_level(info_images[0], info_images[1], info_images[2][i])
+        # создаем спрайт
+        Textures(fullname, x, y)
+
     # hero = Hero()
     running = True
 
