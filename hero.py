@@ -42,6 +42,10 @@ class Hero(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
+        self.movement_speed = 1.1
+        self.jump_speed = 10
+        self.jump_height = 150
+
         self.damage = 25
         self.health = 100
 
@@ -51,10 +55,10 @@ class Hero(pygame.sprite.Sprite):
             self.rect = self.rect.move(0, 1)
 
     def move_right(self):
-        self.rect.x += 1
+        self.rect.x += self.movement_speed
 
     def move_left(self):
-        self.rect.x -= 1
+        self.rect.x -= self.movement_speed
 
     def move_upp(self):
-        self.rect.y -= 50
+        self.rect.y -= 150

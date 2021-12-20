@@ -1,6 +1,7 @@
 from textures import *
 from hero import *
 from level_characteristics import *
+
 # from hero import *
 
 
@@ -11,7 +12,6 @@ LEFT = "left"
 STOP = "stop"
 
 motion = STOP
-
 
 if __name__ == '__main__':
     pygame.init()
@@ -43,14 +43,13 @@ if __name__ == '__main__':
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_d:
                     motion = RIGHT
-                elif event.key == pygame.K_a:
+                if event.key == pygame.K_a:
                     motion = LEFT
-                    # hero.move_left()
-                elif event.key == pygame.K_w:
+                if event.key == pygame.K_w:
                     hero.move_upp()
             elif event.type == pygame.KEYUP:
-                if event.key in [pygame.K_a,
-                             pygame.K_d]:
+                if (event.key == pygame.K_a and motion == LEFT) or \
+                        (event.key == pygame.K_d and motion == RIGHT):
                     motion = STOP
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
