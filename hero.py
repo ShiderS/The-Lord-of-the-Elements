@@ -28,10 +28,10 @@ vertical_borders = pygame.sprite.Group()
 class Hero(pygame.sprite.Sprite):
     image = load_image("hero.png")
 
-    def __init__(self, textures):
+    def __init__(self, list_textures):
         super().__init__(hero_sprites)
 
-        self.textures = textures
+        self.list_textures = list_textures
 
         # маска героя
         self.image = Hero.image
@@ -47,7 +47,7 @@ class Hero(pygame.sprite.Sprite):
 
     def update(self):
         # если ещё в небе
-        if not pygame.sprite.collide_mask(self, self.textures):
+        if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
             self.rect = self.rect.move(0, 1)
 
     def move_right(self):

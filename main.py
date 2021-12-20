@@ -30,8 +30,9 @@ if __name__ == '__main__':
         fullname, x, y = Levels().return_level(info_images[0], info_images[1][i])
         # создаем спрайт
         textures = Textures(fullname, x, y)
+        list_textures.append(textures)
 
-    hero = Hero(textures)
+    hero = Hero(list_textures)
 
     running = True
 
