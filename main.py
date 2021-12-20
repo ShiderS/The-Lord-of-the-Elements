@@ -5,6 +5,12 @@ from level_characteristics import *
 
 
 level = 'level_1'
+list_textures = []
+RIGHT = "right"
+LEFT = "left"
+STOP = "stop"
+
+motion = STOP
 
 
 if __name__ == '__main__':
@@ -35,13 +41,24 @@ if __name__ == '__main__':
                 running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_d:
-                    hero.move_right()
+                    motion = RIGHT
                 elif event.key == pygame.K_a:
-                    hero.move_left()
+                    motion = LEFT
+                    # hero.move_left()
                 elif event.key == pygame.K_w:
                     hero.move_upp()
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.KEYUP:
+                if event.key in [pygame.K_a,
+                             pygame.K_d]:
+                    motion = STOP
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                 x1, y1 = event.pos
+
+        if motion == RIGHT:
+            hero.move_right()
+        elif motion == LEFT:
+            hero.move_left()
         screen.fill((66, 66, 61))
         horizontal_borders.draw(screen)
         vertical_borders.draw(screen)

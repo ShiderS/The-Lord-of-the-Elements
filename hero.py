@@ -51,10 +51,10 @@ class Hero(pygame.sprite.Sprite):
             self.rect = self.rect.move(0, 1)
 
     def move_right(self):
-        self.rect.x += 5
+        self.rect.x += 1
 
     def move_left(self):
-        self.rect.x -= 5
+        self.rect.x -= 1
 
     def move_upp(self):
         self.rect.y -= 50
