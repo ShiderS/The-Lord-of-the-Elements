@@ -32,7 +32,7 @@ if __name__ == '__main__':
         textures = Textures(fullname, x, y)
         list_textures.append(textures)
 
-    hero = Hero(list_textures)
+    hero = Hero(list_textures, size)
 
     running = True
 

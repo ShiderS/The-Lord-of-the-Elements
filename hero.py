@@ -28,10 +28,13 @@ vertical_borders = pygame.sprite.Group()
 class Hero(pygame.sprite.Sprite):
     image = load_image("hero.png")
 
-    def __init__(self, list_textures):
+    def __init__(self, list_textures, size):
         super().__init__(hero_sprites)
 
         self.list_textures = list_textures
+
+        self.wight = size[0]
+        self.height = size[1]
 
         # маска героя
         self.image = Hero.image
@@ -42,7 +45,9 @@ class Hero(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
-        self.movement_speed = 1.1
+        # self.rect.center = (self.image.get_width() / 2, self.image.get_height() / 2)
+
+        self.movement_speed = 2
         self.jump_speed = 10
         self.jump_height = 150
 
@@ -52,13 +57,18 @@ class Hero(pygame.sprite.Sprite):
     def update(self):
         # если ещё в небе
         if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
-            self.rect = self.rect.move(0, 1)
+            self.rect = self.rect.move(0, 2)
 
     def move_right(self):
         self.rect.x += self.movement_speed
+        if self.rect.left > self.wight:
+            self.rect.right = 0
 
     def move_left(self):
         self.rect.x -= self.movement_speed
+        if self.rect.left < 0:
+            self.rect.right = self.wight
 
     def move_upp(self):
-        self.rect.y -= 150
+        if any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
+            self.rect.y -= 100
