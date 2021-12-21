@@ -18,7 +18,7 @@ if __name__ == '__main__':
     pygame.init()
     clock = pygame.time.Clock()
 
-    pygame.display.set_caption('Mygame')
+    pygame.display.set_caption('The Lord of the Elements')
     size = 1000, 800
     screen = pygame.display.set_mode(size)
     screen.fill((66, 66, 61))
@@ -70,7 +70,8 @@ if __name__ == '__main__':
         screen.fill((66, 66, 61))
 
         pygame.draw.rect(screen, (255, 0, 0), (880, 20, hp, 20))
-        # radiatoin.dealing_damage(hero.return_coords())
+        if Radiation().dealing_damage(x_hero, y_hero) != None:
+            hero.damage_fun(Radiation().dealing_damage(x_hero, y_hero))
 
         horizontal_borders.draw(screen)
         vertical_borders.draw(screen)
@@ -80,6 +81,9 @@ if __name__ == '__main__':
 
         hero_sprites.update()
         hero_sprites.draw(screen)
+
+        radiation_sprites.update()
+        radiation_sprites.draw(screen)
 
         pygame.display.flip()
         clock.tick(144)

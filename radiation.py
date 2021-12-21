@@ -25,17 +25,18 @@ def load_image(name, colorkey=None):
 radiation_sprites = pygame.sprite.Group()
 
 
-class Radiation:
+class Radiation(pygame.sprite.Sprite):
     image = load_image("radiation.png")
 
     def __init__(self):
+        super().__init__(radiation_sprites)
         self.damage = 2
 
         self.image = Radiation.image
         self.rect = self.image.get_rect()
 
-        self.rect.x = 500
-        self.rect.y = 100
+        self.rect.x = 175
+        self.rect.y = 185
 
         # self.dealing_damage()
 
