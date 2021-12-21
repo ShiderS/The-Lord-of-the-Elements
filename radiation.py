@@ -30,16 +30,20 @@ class Radiation(pygame.sprite.Sprite):
 
     def __init__(self):
         super().__init__(radiation_sprites)
-        self.damage = 2
+        self.damage = 1
 
         self.image = Radiation.image
         self.rect = self.image.get_rect()
 
-        self.rect.x = 175
+        self.rect.x = 400
         self.rect.y = 185
 
         # self.dealing_damage()
 
     def dealing_damage(self, x, y):
         if -100 < self.rect.x - x < 100 and -100 < self.rect.y - y < 100:
-            return self.damage
+            if self.rect.x - x == 0:
+                return self.damage
+            elif self.rect.x - x < 0:
+                return self.damage * 1 / -(self.rect.x - x)
+            return self.damage * 1 / (self.rect.x - x)
