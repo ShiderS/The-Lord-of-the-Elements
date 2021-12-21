@@ -1,6 +1,7 @@
 from textures import *
 from hero import *
 from level_characteristics import *
+from radiation import *
 
 # from hero import *
 
@@ -32,7 +33,8 @@ if __name__ == '__main__':
         textures = Textures(fullname, x, y)
         list_textures.append(textures)
 
-    hero = Hero(list_textures, size)
+    hero = Hero(list_textures, size, screen)
+    radiatoin = Radiation
 
     running = True
 
@@ -40,6 +42,7 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_d:
                     motion = RIGHT
@@ -47,6 +50,7 @@ if __name__ == '__main__':
                     motion = LEFT
                 if event.key == pygame.K_w:
                     hero.move_upp()
+
             elif event.type == pygame.KEYUP:
                 if (event.key == pygame.K_a and motion == LEFT) or \
                         (event.key == pygame.K_d and motion == RIGHT):
@@ -59,12 +63,23 @@ if __name__ == '__main__':
             hero.move_right()
         elif motion == LEFT:
             hero.move_left()
+
+        hp = hero.hp()
+        x_hero, y_hero = hero.return_coords()
+
         screen.fill((66, 66, 61))
+
+        pygame.draw.rect(screen, (255, 0, 0), (880, 20, hp, 20))
+        # radiatoin.dealing_damage(hero.return_coords())
+
         horizontal_borders.draw(screen)
         vertical_borders.draw(screen)
+
         all_sprites.update()
         all_sprites.draw(screen)
+
         hero_sprites.update()
         hero_sprites.draw(screen)
+
         pygame.display.flip()
         clock.tick(144)
