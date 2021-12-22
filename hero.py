@@ -21,8 +21,6 @@ def load_image(name, colorkey=None):
 
 
 hero_sprites = pygame.sprite.Group()
-horizontal_borders = pygame.sprite.Group()
-vertical_borders = pygame.sprite.Group()
 
 
 class Hero(pygame.sprite.Sprite):
@@ -77,7 +75,7 @@ class Hero(pygame.sprite.Sprite):
 
     def move_upp(self):
         if any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
-            self.rect.y -= 100
+            self.rect.y -= self.jump_height
 
     def damage_fun(self, damage):
         self.health -= damage

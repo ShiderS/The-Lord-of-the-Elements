@@ -1,4 +1,5 @@
 from hero import *
+from main import *
 
 hero = Hero
 
@@ -22,14 +23,11 @@ def load_image(name, colorkey=None):
     return image
 
 
-radiation_sprites = pygame.sprite.Group()
-
-
 class Radiation(pygame.sprite.Sprite):
     image = load_image("radiation.png")
 
     def __init__(self):
-        super().__init__(radiation_sprites)
+        super().__init__(all_sprites)
         self.damage = 1
 
         self.image = Radiation.image

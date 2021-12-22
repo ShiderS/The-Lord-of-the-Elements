@@ -3,8 +3,7 @@ from hero import *
 from level_characteristics import *
 from radiation import *
 
-# from hero import *
-
+size = 1000, 800
 
 level = 'level_1'
 list_textures = []
@@ -14,12 +13,33 @@ STOP = "stop"
 
 motion = STOP
 
+isJump = False
+
+
+class Camera:
+    # зададим начальный сдвиг камеры
+    def __init__(self):
+        self.dx = 0
+        self.dy = 0
+
+    # сдвинуть объект obj на смещение камеры
+    def apply(self, obj):
+        obj.rect.x += self.dx
+        obj.rect.y += self.dy
+
+    # позиционировать камеру на объекте target
+    def update(self, target):
+        self.dx = -(target.rect.x + target.rect.w // 2 - size[0] // 2)
+        self.dy = -(target.rect.y + target.rect.h // 2 - size[1] // 2)
+
+
+camera = Camera()
+
 if __name__ == '__main__':
     pygame.init()
     clock = pygame.time.Clock()
 
     pygame.display.set_caption('The Lord of the Elements')
-    size = 1000, 800
     screen = pygame.display.set_mode(size)
     screen.fill((66, 66, 61))
 
@@ -70,20 +90,15 @@ if __name__ == '__main__':
         screen.fill((66, 66, 61))
 
         pygame.draw.rect(screen, (255, 0, 0), (880, 20, hp, 20))
+
         if Radiation().dealing_damage(x_hero, y_hero) != None:
             hero.damage_fun(Radiation().dealing_damage(x_hero, y_hero))
-
-        horizontal_borders.draw(screen)
-        vertical_borders.draw(screen)
 
         all_sprites.update()
         all_sprites.draw(screen)
 
         hero_sprites.update()
         hero_sprites.draw(screen)
-
-        radiation_sprites.update()
-        radiation_sprites.draw(screen)
 
         pygame.display.flip()
         clock.tick(144)
