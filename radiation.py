@@ -1,5 +1,5 @@
 from hero import *
-from main import *
+from textures import *
 
 hero = Hero
 

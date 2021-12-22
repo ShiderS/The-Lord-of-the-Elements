@@ -91,6 +91,12 @@ if __name__ == '__main__':
 
         pygame.draw.rect(screen, (255, 0, 0), (880, 20, hp, 20))
 
+        # # изменяем ракурс камеры
+        # camera.update(hero)
+        # # обновляем положение всех спрайтов
+        # for sprite in all_sprites:
+        #     camera.apply(sprite)
+
         if Radiation().dealing_damage(x_hero, y_hero) != None:
             hero.damage_fun(Radiation().dealing_damage(x_hero, y_hero))
 
