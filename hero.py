@@ -1,42 +1,27 @@
-import pygame, os, sys
-
-
-def load_image(name, colorkey=None):
-    fullname = os.path.join('images', name)
-    # если файл не существует, то выходим
-    if not os.path.isfile(fullname):
-        print(f"Файл с изображением '{fullname}' не найден")
-        sys.exit()
-    image = pygame.image.load(fullname)
-
-    if colorkey is not None:
-        image = image.convert()
-        if colorkey == -1:
-            colorkey = image.get_at((0, 0))
-        image.set_colorkey(colorkey)
-    else:
-        image = image.convert_alpha()
-
-    return image
-
+import pygame
 
 hero_sprites = pygame.sprite.Group()
 
 
 class Hero(pygame.sprite.Sprite):
-    image = load_image("hero.png")
-
-    def __init__(self, list_textures, size, screen):
+    def __init__(self, sheet, columns, rows, list_textures, size, screen):
         super().__init__(hero_sprites)
 
         self.list_textures = list_textures
+
+        self.counter = 0
+
+        self.frames = []
+        self.cut_sheet(sheet, columns, rows)
+        self.cur_frame = 0
+        self.image = self.frames[self.cur_frame]
 
         self.wight = size[0]
         self.height = size[1]
         self.screen = screen
 
         # маска героя
-        self.image = Hero.image
+        # self.image = Hero.image
         self.rect = self.image.get_rect()
 
         # вычисляем маску для эффективного сравнения
@@ -53,7 +38,22 @@ class Hero(pygame.sprite.Sprite):
         self.damage = 25
         self.health = 100
 
+    def cut_sheet(self, sheet, columns, rows):
+        self.rect = pygame.Rect(0, 0, sheet.get_width() // columns,
+                                sheet.get_height() // rows)
+        for j in range(rows):
+            for i in range(columns):
+                frame_location = (self.rect.w * i, self.rect.h * j)
+                self.frames.append(sheet.subsurface(pygame.Rect(
+                    frame_location, self.rect.size)))
+
     def update(self):
+        if self.counter == 10:
+            self.cur_frame = (self.cur_frame + 1) % len(self.frames)
+            self.image = self.frames[self.cur_frame]
+            self.counter = 0
+        else:
+            self.counter += 1
         # если ещё в небе
         if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
             self.rect = self.rect.move(0, 2)
