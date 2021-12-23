@@ -38,13 +38,13 @@ class Hero(pygame.sprite.Sprite):
         # маска героя
         self.image = Hero.image
         self.rect = self.image.get_rect()
+
         # вычисляем маску для эффективного сравнения
         self.mask_stone_platform = pygame.mask.from_surface(self.image)
+
         self.coord = self.x, self.y = 200, 0
         self.rect.x = self.x
         self.rect.y = self.y
-
-        # self.rect.center = (self.image.get_width() / 2, self.image.get_height() / 2)
 
         self.movement_speed = 2
         self.jump_speed = 10
@@ -59,11 +59,6 @@ class Hero(pygame.sprite.Sprite):
             self.rect = self.rect.move(0, 2)
 
     def move_right(self):
-        # for i in self.list_textures:
-        #     print(i.rect.y, self.rect.y, i.rect.y + i.rect.height)
-        #     print(i.rect.x, self.rect.x, i.rect.x + i.rect.height)
-        #     if i.rect.y > self.rect.y - 10 >= i.rect.y + i.rect.height \
-        #             and i.rect.x < self.rect.x <= i.rect.x + i.rect.width:
         self.rect.x += self.movement_speed
         if self.rect.left > self.wight:
             self.rect.right = 0
@@ -78,7 +73,10 @@ class Hero(pygame.sprite.Sprite):
             self.rect.y -= self.jump_height
 
     def damage_fun(self, damage):
-        self.health -= damage
+        if self.health > 0:
+            self.health -= damage
+        else:
+            self.kill()
 
     def hp(self):
         return self.health

@@ -5,6 +5,12 @@ from radiation import *
 
 size = 1000, 800
 
+pygame.init()
+clock = pygame.time.Clock()
+pygame.display.set_caption('The Lord of the Elements')
+screen = pygame.display.set_mode(size)
+screen.fill((66, 66, 61))
+
 level = 'level_1'
 list_textures = []
 RIGHT = "right"
@@ -36,15 +42,6 @@ class Camera:
 camera = Camera()
 
 if __name__ == '__main__':
-    pygame.init()
-    clock = pygame.time.Clock()
-
-    pygame.display.set_caption('The Lord of the Elements')
-    screen = pygame.display.set_mode(size)
-    screen.fill((66, 66, 61))
-
-    pygame.display.flip()
-
     info_images = Level_characteristics(size[0], size[1], level).render()
     # берем из класса Levels местоположение текстурки и ее расположение на холсте
     for i in range(len(info_images[1])):

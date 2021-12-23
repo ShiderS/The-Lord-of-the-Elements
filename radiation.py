@@ -43,5 +43,5 @@ class Radiation(pygame.sprite.Sprite):
             if self.rect.x - x == 0:
                 return self.damage
             elif self.rect.x - x < 0:
-                return self.damage * 1 / -(self.rect.x - x)
-            return self.damage * 1 / (self.rect.x - x)
+                return self.damage * (1 / -(self.rect.x - x))
+            return self.damage * (1 / (self.rect.x - x))
