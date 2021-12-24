@@ -24,17 +24,15 @@ def load_image(name, colorkey=None):
 
 
 class Radiation(pygame.sprite.Sprite):
-    image = load_image("radiation.png")
-
-    def __init__(self):
+    def __init__(self, image, coords):
         super().__init__(all_sprites)
         self.damage = 1
 
-        self.image = Radiation.image
+        self.image = load_image(image)
         self.rect = self.image.get_rect()
 
-        self.rect.x = 400
-        self.rect.y = 185
+        self.rect.x = coords[0]
+        self.rect.y = coords[1]
 
         # self.dealing_damage()
 

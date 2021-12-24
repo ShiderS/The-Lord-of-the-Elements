@@ -70,8 +70,8 @@ if __name__ == '__main__':
         textures = Textures(fullname, x, y)
         list_textures.append(textures)
 
-    hero = Hero(load_image("dragon_sheet8x2.png"), 8, 2, list_textures, size, screen)
-    radiatoin = Radiation
+    hero = Hero(load_image("hero_.png"), 4, 1, list_textures, size, screen)
+    radiation = Radiation('radiation.png', (400, 185))
 
     running = True
 
@@ -114,8 +114,8 @@ if __name__ == '__main__':
         # for sprite in all_sprites:
         #     camera.apply(sprite)
 
-        if Radiation().dealing_damage(x_hero, y_hero) != None:
-            hero.damage_fun(Radiation().dealing_damage(x_hero, y_hero))
+        if radiation.dealing_damage(x_hero, y_hero) != None:
+            hero.damage_fun(radiation.dealing_damage(x_hero, y_hero))
 
         all_sprites.update()
         all_sprites.draw(screen)

@@ -1,1 +1,1 @@
-stone_platform.png wooden_platform.png rock.png
+wooden_platform.png rock.png
