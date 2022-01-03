@@ -1,1 +1,1 @@
-wooden_platform.png rock.png
+520x190.png 100x100.png

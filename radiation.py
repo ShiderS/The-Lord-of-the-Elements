@@ -5,8 +5,7 @@ hero = Hero
 level = 'level_1'
 
 
-def load_image(name, colorkey=None):
-    fullname = os.path.join('levels/' + level + '/radiations', name)
+def load_image(fullname, colorkey=None):
     # если файл не существует, то выходим
     if not os.path.isfile(fullname):
         print(f"Файл с изображением '{fullname}' не найден")
@@ -38,7 +37,7 @@ class Radiation(pygame.sprite.Sprite):
         # self.dealing_damage()
 
     def dealing_damage(self, x, y):
-        if -100 < self.rect.x - x < 100 and -100 < self.rect.y - y < 100:
+        if self.rect.x <= x + 50 <= self.rect.x + 100 and self.rect.y <= y + 100 <= self.rect.y + 100:
             if self.rect.x - x == 0:
                 return self.damage
             elif self.rect.x - x < 0:

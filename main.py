@@ -13,6 +13,7 @@ screen.fill((66, 66, 61))
 
 level = 'level_1'
 list_textures = []
+list_radiations = []
 RIGHT = "right"
 LEFT = "left"
 STOP = "stop"
@@ -62,16 +63,22 @@ class Camera:
 camera = Camera()
 
 if __name__ == '__main__':
-    info_images = Level_characteristics(size[0], size[1], level).render()
+    info_images = Level_characteristics(size[0], size[1], level, 'info_level.txt').render()
+    info_images_radiation = Level_characteristics(size[0], size[1], level, 'info_radiation.txt').render()
     # берем из класса Levels местоположение текстурки и ее расположение на холсте
     for i in range(len(info_images[1])):
-        fullname, x, y = Levels().return_level(info_images[0], info_images[1][i])
+        fullname, x, y = Levels().return_level(info_images[0], info_images[1][i], 'images')
         # создаем спрайт
         textures = Textures(fullname, x, y)
         list_textures.append(textures)
 
+    for i in range(len(info_images_radiation[1])):
+        fullname, x, y = Levels().return_level(info_images_radiation[0], info_images_radiation[1][i], 'radiations')
+        # создаем спрайт
+        radiation = Radiation(fullname, (x, y))
+        list_radiations.append(radiation)
+
     hero = Hero(load_image("hero_.png"), 4, 1, list_textures, size, screen)
-    radiation = Radiation('radiation.png', (400, 185))
 
     running = True
 
@@ -114,8 +121,8 @@ if __name__ == '__main__':
         # for sprite in all_sprites:
         #     camera.apply(sprite)
 
-        if radiation.dealing_damage(x_hero, y_hero) != None:
-            hero.damage_fun(radiation.dealing_damage(x_hero, y_hero))
+        if any(radiation.dealing_damage(x_hero, y_hero) != None for radiation in list_radiations):
+            hero.damage_fun(0.1)
 
         all_sprites.update()
         all_sprites.draw(screen)
