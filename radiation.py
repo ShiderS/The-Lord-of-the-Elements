@@ -2,10 +2,11 @@ from hero import *
 from textures import *
 
 hero = Hero
+level = 'level_1'
 
 
 def load_image(name, colorkey=None):
-    fullname = os.path.join('images', name)
+    fullname = os.path.join('levels/' + level + '/radiations', name)
     # если файл не существует, то выходим
     if not os.path.isfile(fullname):
         print(f"Файл с изображением '{fullname}' не найден")
