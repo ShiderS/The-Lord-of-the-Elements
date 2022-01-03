@@ -28,7 +28,7 @@ class Radiation(pygame.sprite.Sprite):
         super().__init__(all_sprites)
         self.damage = 1
 
-        self.image = load_image(image)
+        self.image = load_image(image + '.png')
         self.rect = self.image.get_rect()
 
         self.rect.x = coords[0]

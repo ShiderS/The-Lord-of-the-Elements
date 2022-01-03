@@ -7,6 +7,6 @@ class Levels:
 
     def return_level(self, level, name, info):
         fullname = os.path.join('levels', level, info, name)
-        x, y = name[:-4].split('x')
+        x, y = name.split('x')
         x, y = int(x), int(y)
         return fullname, x, y
