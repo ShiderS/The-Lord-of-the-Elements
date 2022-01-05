@@ -34,12 +34,3 @@ class Radiation(pygame.sprite.Sprite):
         self.rect.x = coords[0]
         self.rect.y = coords[1]
 
-        # self.dealing_damage()
-
-    def dealing_damage(self, x, y):
-        if self.rect.x <= x + 50 <= self.rect.x + 100 and self.rect.y <= y + 100 <= self.rect.y + 100:
-            if self.rect.x - x == 0:
-                return self.damage
-            elif self.rect.x - x < 0:
-                return self.damage * (1 / -(self.rect.x - x))
-            return self.damage * (1 / (self.rect.x - x))

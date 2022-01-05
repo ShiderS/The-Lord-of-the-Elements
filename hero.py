@@ -4,10 +4,11 @@ hero_sprites = pygame.sprite.Group()
 
 
 class Hero(pygame.sprite.Sprite):
-    def __init__(self, sheet, columns, rows, list_textures, size, screen):
+    def __init__(self, sheet, columns, rows, list_textures, list_radiations, size, screen):
         super().__init__(hero_sprites)
 
         self.list_textures = list_textures
+        self.list_radiations = list_radiations
 
         self.counter = 0
 
@@ -31,9 +32,9 @@ class Hero(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
-        self.movement_speed = 2
+        self.movement_speed = 5
         self.jump_speed = 10
-        self.jump_height = 150
+        self.jump_height = 100
 
         self.damage = 25
         self.health = 100
@@ -56,7 +57,9 @@ class Hero(pygame.sprite.Sprite):
             self.counter += 1
         # если ещё в небе
         if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
-            self.rect = self.rect.move(0, 2)
+            self.rect = self.rect.move(0, 4)
+        if any(pygame.sprite.collide_mask(self, i) for i in self.list_radiations):
+            self.damage_fun(0.1)
 
     def move_right(self):
         self.rect.x += self.movement_speed

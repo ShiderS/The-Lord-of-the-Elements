@@ -1,5 +1,3 @@
-from textures import *
-from hero import *
 from level_characteristics import *
 from radiation import *
 
@@ -65,6 +63,7 @@ camera = Camera()
 if __name__ == '__main__':
     info_images = Level_characteristics(size[0], size[1], level, 'info_level.txt').render()
     info_images_radiation = Level_characteristics(size[0], size[1], level, 'info_radiation.txt').render()
+
     # берем из класса Levels местоположение текстурки и ее расположение на холсте
     for i in range(len(info_images[1])):
         fullname, x, y = Levels().return_level(info_images[0], info_images[1][i], 'images')
@@ -78,7 +77,7 @@ if __name__ == '__main__':
         radiation = Radiation(fullname, (x, y))
         list_radiations.append(radiation)
 
-    hero = Hero(load_image("hero_.png"), 4, 1, list_textures, size, screen)
+    hero = Hero(load_image("hero_.png"), 4, 1, list_textures, list_radiations, size, screen)
 
     running = True
 
@@ -121,9 +120,6 @@ if __name__ == '__main__':
         # for sprite in all_sprites:
         #     camera.apply(sprite)
 
-        if any(radiation.dealing_damage(x_hero, y_hero) != None for radiation in list_radiations):
-            hero.damage_fun(0.1)
-
         all_sprites.update()
         all_sprites.draw(screen)
 
@@ -131,4 +127,4 @@ if __name__ == '__main__':
         hero_sprites.draw(screen)
 
         pygame.display.flip()
-        clock.tick(144)
+        clock.tick(60)
