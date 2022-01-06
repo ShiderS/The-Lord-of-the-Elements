@@ -110,9 +110,14 @@ if __name__ == '__main__':
         hp = hero.hp()
         x_hero, y_hero = hero.return_coords()
 
+        if hp <= 0 or y_hero >= 800:
+            hp = 0
+            hero.kill()
+
         screen.fill((66, 66, 61))
 
-        pygame.draw.rect(screen, (255, 0, 0), (880, 20, hp, 20))
+        if hp > 0:
+            pygame.draw.rect(screen, (255, 0, 0), (880, 20, hp, 20))
 
         # # изменяем ракурс камеры
         # camera.update(hero)
