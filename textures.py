@@ -7,6 +7,7 @@ screen = pygame.display.set_mode(size)
 
 # спрайты
 all_sprites = pygame.sprite.Group()
+square_sprites = pygame.sprite.Group()
 horizontal_borders = pygame.sprite.Group()
 vertical_borders = pygame.sprite.Group()
 
@@ -43,5 +44,18 @@ class Textures(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         # вычисляем маску для эффективного сравнения
         self.mask = pygame.mask.from_surface(self.image)
+        self.rect.x = x
+        self.rect.y = y
+        sqare = Sqare(x, y)
+
+
+class Sqare(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__(square_sprites)
+        self.image = pygame.Surface((50, 10))
+        self.image.fill(pygame.Color("red"))
+
+        self.rect = self.image.get_rect()
+
         self.rect.x = x
         self.rect.y = y
