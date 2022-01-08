@@ -13,6 +13,7 @@ level = 'level_1'
 list_textures = []
 list_radiations = []
 list_rect_textures = []
+list_mask_textures = []
 RIGHT = "right"
 LEFT = "left"
 STOP = "stop"
@@ -71,8 +72,10 @@ if __name__ == '__main__':
         # создаем спрайт
         textures = Textures(fullname, x, y)
         rect = Textures(fullname, x, y).get_rect()
+        mask = Textures(fullname, x, y).get_mask()
         list_textures.append(textures)
         list_rect_textures.append(rect)
+        list_mask_textures.append(mask)
 
     for i in range(len(info_images_radiation[1])):
         fullname, x, y = Levels().return_level(info_images_radiation[0], info_images_radiation[1][i], 'radiations')
@@ -80,7 +83,7 @@ if __name__ == '__main__':
         radiation = Radiation(fullname, (x, y))
         list_radiations.append(radiation)
 
-    hero = Hero(load_image("hero_.png"), 4, 1, list_textures, list_rect_textures, list_radiations, size, screen)
+    hero = Hero(load_image("hero_.png"), 4, 1, list_textures, list_rect_textures, list_mask_textures, list_radiations, size, screen)
 
     running = True
 

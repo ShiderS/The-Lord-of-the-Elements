@@ -49,3 +49,6 @@ class Textures(pygame.sprite.Sprite):
 
     def get_rect(self):
         return self.rect
+
+    def get_mask(self):
+        return self.mask
