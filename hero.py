@@ -34,7 +34,7 @@ class Hero(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
-        self.movement_speed = 5
+        self.movement_speed = 3
         self.jump_speed = 10
         self.jump_height = 100
 
@@ -94,3 +94,6 @@ class Hero(pygame.sprite.Sprite):
 
     def return_coords(self):
         return self.rect.x, self.rect.y
+
+    def return_rect(self):
+        return self.rect

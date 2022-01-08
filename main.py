@@ -48,16 +48,24 @@ class Camera:
     def __init__(self):
         self.dx = 0
         self.dy = 0
+        self.movement_speed = 3
 
     # сдвинуть объект obj на смещение камеры
-    def apply(self, obj):
-        obj.rect.x += self.dx
+    def apply_upp(self, obj):
+        # obj.rect.x += self.dx
         obj.rect.y += self.dy
+
+    def apply_left(self, obj):
+        obj.rect.x += self.movement_speed
+
+    def apply_right(self, obj):
+        obj.rect.x -= self.movement_speed
 
     # позиционировать камеру на объекте target
     def update(self, target):
         self.dx = -(target.rect.x + target.rect.w // 2 - size[0] // 2)
         self.dy = -(target.rect.y + target.rect.h // 2 - size[1] // 2)
+        print(self.dx, self.dy)
 
 
 camera = Camera()
@@ -111,8 +119,12 @@ if __name__ == '__main__':
         list_radiations.append(radiation)
 
     hero = Hero(load_image("hero_.png"), 4, 1, list_textures, list_rect_textures, list_mask_textures, list_radiations, size, screen)
+    rect_hero = hero.return_rect()
 
     running = True
+
+    # изменяем ракурс камеры
+    camera.update(hero)
 
     while running:
         for event in pygame.event.get():
@@ -138,8 +150,13 @@ if __name__ == '__main__':
 
         if motion == RIGHT:
             hero.move_right()
+            # if not any(rect_textures.collidepoint(rect_hero.topright) for rect_textures in list_rect_textures):
+            for sprite in all_sprites:
+                camera.apply_right(sprite)
         elif motion == LEFT:
             hero.move_left()
+            for sprite in all_sprites:
+                camera.apply_left(sprite)
 
         hp = hero.hp()
         x_hero, y_hero = hero.return_coords()
@@ -152,12 +169,6 @@ if __name__ == '__main__':
 
         if hp > 0:
             pygame.draw.rect(screen, (255, 0, 0), (880, 20, hp, 20))
-
-        # # изменяем ракурс камеры
-        # camera.update(hero)
-        # # обновляем положение всех спрайтов
-        # for sprite in all_sprites:
-        #     camera.apply(sprite)
 
         all_sprites.update()
         all_sprites.draw(screen)

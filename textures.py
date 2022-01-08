@@ -7,7 +7,6 @@ screen = pygame.display.set_mode(size)
 
 # спрайты
 all_sprites = pygame.sprite.Group()
-square_sprites = pygame.sprite.Group()
 horizontal_borders = pygame.sprite.Group()
 vertical_borders = pygame.sprite.Group()
 
