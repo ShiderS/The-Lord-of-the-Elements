@@ -4,11 +4,12 @@ hero_sprites = pygame.sprite.Group()
 
 
 class Hero(pygame.sprite.Sprite):
-    def __init__(self, sheet, columns, rows, list_textures, list_rect_textures, list_radiations, size, screen):
+    def __init__(self, sheet, columns, rows, list_textures, list_rect_textures, list_mask_textures, list_radiations, size, screen):
         super().__init__(hero_sprites)
 
         self.list_textures = list_textures
         self.list_rect_textures = list_rect_textures
+        self.list_mask_textures = list_mask_textures
         self.list_radiations = list_radiations
 
         self.counter = 0
@@ -27,7 +28,7 @@ class Hero(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         # вычисляем маску для эффективного сравнения
-        self.mask_stone_platform = pygame.mask.from_surface(self.image)
+        self.mask_hero = pygame.mask.from_surface(self.image)
 
         self.coord = self.x, self.y = 200, 0
         self.rect.x = self.x
@@ -63,6 +64,10 @@ class Hero(pygame.sprite.Sprite):
             self.damage_fun(0.1)
 
     def move_right(self):
+        # offset = (self.rect.x - self.list_rect_textures[0].x, self.rect.y - self.list_rect_textures[0].y)
+        # print(self.mask_hero.overlap_area(self.list_mask_textures[0], offset))
+        # if any(self.mask_hero.overlap_area(mask_textures, offset) > 0 for mask_textures in self.list_mask_textures):
+        #     pass
         if not any(rect_textures.collidepoint(self.rect.topright) for rect_textures in self.list_rect_textures):
             self.rect.x += self.movement_speed
         if self.rect.left > self.wight:
