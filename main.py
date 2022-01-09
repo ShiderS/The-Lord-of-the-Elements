@@ -22,6 +22,10 @@ counter = 0
 motion = STOP
 
 isJump = False
+height_jump = 0
+number_of_jumps = 0
+max_number_of_jumps = 1
+flag_jump = False
 
 
 def load_image(name, colorkey=None):
@@ -49,11 +53,13 @@ class Camera:
         self.dx = 0
         self.dy = 0
         self.movement_speed = 3
+        self.jump_speed = 10
+        self.jump_height = 100
 
     # сдвинуть объект obj на смещение камеры
     def apply_upp(self, obj):
         # obj.rect.x += self.dx
-        obj.rect.y += self.dy
+        obj.rect.y += self.jump_height
 
     def apply_left(self, obj):
         obj.rect.x += self.movement_speed
@@ -65,7 +71,6 @@ class Camera:
     def update(self, target):
         self.dx = -(target.rect.x + target.rect.w // 2 - size[0] // 2)
         self.dy = -(target.rect.y + target.rect.h // 2 - size[1] // 2)
-        print(self.dx, self.dy)
 
 
 camera = Camera()
@@ -138,12 +143,16 @@ if __name__ == '__main__':
                 if event.key == pygame.K_a:
                     motion = LEFT
                 if event.key == pygame.K_w:
-                    hero.move_upp()
+                    isJump = True
+                    number_of_jumps += 1
 
             elif event.type == pygame.KEYUP:
                 if (event.key == pygame.K_a and motion == LEFT) or \
                         (event.key == pygame.K_d and motion == RIGHT):
                     motion = STOP
+                if event.key == pygame.K_w:
+                    isJump = False
+                    height_jump = 0
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x1, y1 = event.pos
@@ -153,10 +162,13 @@ if __name__ == '__main__':
             # if not any(rect_textures.collidepoint(rect_hero.topright) for rect_textures in list_rect_textures):
             for sprite in all_sprites:
                 camera.apply_right(sprite)
-        elif motion == LEFT:
+        if motion == LEFT:
             hero.move_left()
             for sprite in all_sprites:
                 camera.apply_left(sprite)
+        if isJump and number_of_jumps <= max_number_of_jumps:
+            height_jump += 10
+            hero.move_upp(height_jump)
 
         hp = hero.hp()
         x_hero, y_hero = hero.return_coords()
@@ -169,6 +181,11 @@ if __name__ == '__main__':
 
         if hp > 0:
             pygame.draw.rect(screen, (255, 0, 0), (880, 20, hp, 20))
+
+        flag_jump = hero.return_flag_jump()
+
+        if flag_jump:
+            number_of_jumps = 0
 
         all_sprites.update()
         all_sprites.draw(screen)

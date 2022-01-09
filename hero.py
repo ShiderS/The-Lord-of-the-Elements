@@ -79,9 +79,11 @@ class Hero(pygame.sprite.Sprite):
         if self.rect.left < 0:
             self.rect.right = self.wight
 
-    def move_upp(self):
-        if any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
-            self.rect.y -= self.jump_height
+    def move_upp(self, height_jump):
+        if height_jump <= self.jump_height:
+            self.rect.y -= self.jump_speed
+        # if any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
+        #     self.rect.y -= self.jump_height
 
     def damage_fun(self, damage):
         if self.health > 0:
@@ -97,3 +99,8 @@ class Hero(pygame.sprite.Sprite):
 
     def return_rect(self):
         return self.rect
+
+    def return_flag_jump(self):
+        if any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
+            return True
+        return False
