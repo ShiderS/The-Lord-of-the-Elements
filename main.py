@@ -1,7 +1,9 @@
 from level_characteristics import *
 from radiation import *
+from Particle import *
 
 size = 1000, 800
+screen_rect = (0, 0, size[0], size[1])
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -99,6 +101,15 @@ def start_screen():
         intro_rect.x = 10
         text_coord += intro_rect.height
         screen.blit(string_rendered, intro_rect)
+
+
+def create_particles(position):
+    # количество создаваемых частиц
+    particle_count = 20
+    # возможные скорости
+    numbers = range(-5, 6)
+    for _ in range(particle_count):
+        Particle(position, random.choice(numbers), random.choice(numbers))
 
 
 if __name__ == '__main__':

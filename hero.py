@@ -101,6 +101,4 @@ class Hero(pygame.sprite.Sprite):
         return self.rect
 
     def return_flag_jump(self):
-        if any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
-            return True
-        return False
+        return any(pygame.sprite.collide_mask(self, i) for i in self.list_textures)
