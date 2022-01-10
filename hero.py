@@ -102,3 +102,9 @@ class Hero(pygame.sprite.Sprite):
 
     def return_flag_jump(self):
         return any(pygame.sprite.collide_mask(self, i) for i in self.list_textures)
+
+    def return_flag_move_left(self):
+        return any(rect_textures.collidepoint(self.rect.topleft) for rect_textures in self.list_rect_textures)
+
+    def return_flag_move_right(self):
+        return any(rect_textures.collidepoint(self.rect.topright) for rect_textures in self.list_rect_textures)

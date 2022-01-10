@@ -187,6 +187,7 @@ if __name__ == '__main__':
         if hp <= 0 or y_hero >= 800:
             hp = 0
             hero.kill()
+            running = False
 
         screen.fill((66, 66, 61))
 
