@@ -20,13 +20,15 @@ RIGHT = "right"
 LEFT = "left"
 STOP = "stop"
 counter = 0
+gravity = 5
 
 motion = STOP
 
 isJump = False
+isDawn = False
 height_jump = 0
 number_of_jumps = 0
-max_number_of_jumps = 1
+max_number_of_jumps = 2
 flag_jump = False
 
 
@@ -55,19 +57,24 @@ class Camera:
         self.dx = 0
         self.dy = 0
         self.movement_speed = 3
-        self.jump_speed = 10
+        self.jump_speed = 15
         self.jump_height = 100
 
     # сдвинуть объект obj на смещение камеры
     def apply_upp(self, obj):
         # obj.rect.x += self.dx
-        obj.rect.y += self.jump_height
+        obj.rect.y += self.jump_speed
+
+    def apply_dawn(self, obj):
+        obj.rect.y -= self.jump_speed
 
     def apply_left(self, obj):
-        obj.rect.x += self.movement_speed
+        if not hero.return_flag_move_left():
+            obj.rect.x += self.movement_speed
 
     def apply_right(self, obj):
-        obj.rect.x -= self.movement_speed
+        if not hero.return_flag_move_right():
+            obj.rect.x -= self.movement_speed
 
     # позиционировать камеру на объекте target
     def update(self, target):
@@ -134,7 +141,8 @@ if __name__ == '__main__':
         radiation = Radiation(fullname, (x, y))
         list_radiations.append(radiation)
 
-    hero = Hero(load_image("hero_.png"), 4, 1, list_textures, list_rect_textures, list_mask_textures, list_radiations, size, screen)
+    hero = Hero(load_image("hero_.png"), 4, 1, list_textures, gravity,
+                list_rect_textures, list_mask_textures, list_radiations, size, screen)
     rect_hero = hero.return_rect()
 
     running = True
@@ -156,6 +164,8 @@ if __name__ == '__main__':
                 if event.key == pygame.K_w:
                     isJump = True
                     number_of_jumps += 1
+                if event.key == pygame.K_s:
+                    isDawn = True
 
             elif event.type == pygame.KEYUP:
                 if (event.key == pygame.K_a and motion == LEFT) or \
@@ -164,6 +174,8 @@ if __name__ == '__main__':
                 if event.key == pygame.K_w:
                     isJump = False
                     height_jump = 0
+                if event.key == pygame.K_s:
+                    isDawn = False
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x1, y1 = event.pos
@@ -180,6 +192,10 @@ if __name__ == '__main__':
         if isJump and number_of_jumps <= max_number_of_jumps:
             height_jump += 10
             hero.move_upp(height_jump)
+            # for sprite in all_sprites:
+            #     camera.apply_upp(sprite)
+        if isDawn:
+            hero.move_dawn()
 
         hp = hero.hp()
         x_hero, y_hero = hero.return_coords()
@@ -194,9 +210,7 @@ if __name__ == '__main__':
         if hp > 0:
             pygame.draw.rect(screen, (255, 0, 0), (880, 20, hp, 20))
 
-        flag_jump = hero.return_flag_jump()
-
-        if flag_jump:
+        if hero.return_flag_jump():
             number_of_jumps = 0
 
         all_sprites.update()

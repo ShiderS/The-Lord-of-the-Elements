@@ -4,7 +4,8 @@ hero_sprites = pygame.sprite.Group()
 
 
 class Hero(pygame.sprite.Sprite):
-    def __init__(self, sheet, columns, rows, list_textures, list_rect_textures, list_mask_textures, list_radiations, size, screen):
+    def __init__(self, sheet, columns, rows, list_textures, gravity,
+                 list_rect_textures, list_mask_textures, list_radiations, size, screen):
         super().__init__(hero_sprites)
 
         self.list_textures = list_textures
@@ -35,8 +36,10 @@ class Hero(pygame.sprite.Sprite):
         self.rect.y = self.y
 
         self.movement_speed = 3
-        self.jump_speed = 10
+        self.jump_speed = 15
+        self.dawn_speed = 5
         self.jump_height = 100
+        self.gravity = gravity
 
         self.damage = 25
         self.health = 100
@@ -59,7 +62,7 @@ class Hero(pygame.sprite.Sprite):
             self.counter += 1
         # если ещё в небе
         if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
-            self.rect = self.rect.move(0, 4)
+            self.rect = self.rect.move(0, self.gravity)
         if any(pygame.sprite.collide_mask(self, i) for i in self.list_radiations):
             self.damage_fun(0.1)
 
@@ -84,6 +87,10 @@ class Hero(pygame.sprite.Sprite):
             self.rect.y -= self.jump_speed
         # if any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
         #     self.rect.y -= self.jump_height
+
+    def move_dawn(self):
+        if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
+            self.rect.y += self.dawn_speed
 
     def damage_fun(self, damage):
         if self.health > 0:
