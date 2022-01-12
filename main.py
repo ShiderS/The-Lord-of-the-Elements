@@ -119,7 +119,19 @@ def create_particles(position):
         Particle(position, random.choice(numbers), random.choice(numbers))
 
 
-if __name__ == '__main__':
+def start_level():
+    counter = 0
+    gravity = 5
+
+    motion = STOP
+
+    isJump = False
+    isDawn = False
+    height_jump = 0
+    number_of_jumps = 0
+    max_number_of_jumps = 2
+    flag_jump = False
+
     # start_screen()
     info_images = Level_characteristics(size[0], size[1], level, 'info_level.txt').render()
     info_images_radiation = Level_characteristics(size[0], size[1], level, 'info_radiation.txt').render()
@@ -141,8 +153,6 @@ if __name__ == '__main__':
         radiation = Radiation(fullname, (x, y))
         list_radiations.append(radiation)
 
-    hero = Hero(load_image("hero_.png"), 4, 1, list_textures, gravity,
-                list_rect_textures, list_mask_textures, list_radiations, size, screen)
     rect_hero = hero.return_rect()
 
     running = True
@@ -221,3 +231,18 @@ if __name__ == '__main__':
 
         pygame.display.flip()
         clock.tick(60)
+
+
+if __name__ == '__main__':
+    running = True
+
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                terminate()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x1, y1 = event.pos
+                hero = Hero(load_image("hero_.png"), 4, 1, list_textures, gravity,
+                            list_rect_textures, list_mask_textures, list_radiations, size, screen)
+                start_level()
