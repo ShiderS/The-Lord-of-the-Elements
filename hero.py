@@ -92,6 +92,12 @@ class Hero(pygame.sprite.Sprite):
         if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
             self.rect.y += self.dawn_speed
 
+    def melee_attack(self):
+        pass
+
+    def long_range_attack(self):
+        pass
+
     def damage_fun(self, damage):
         if self.health > 0:
             self.health -= damage
