@@ -11,7 +11,6 @@ pygame.display.set_caption('The Lord of the Elements')
 screen = pygame.display.set_mode(size)
 screen.fill((66, 66, 61))
 
-level = 'level_1'
 list_textures = []
 list_radiations = []
 list_rect_textures = []
@@ -19,17 +18,16 @@ list_mask_textures = []
 RIGHT = "right"
 LEFT = "left"
 STOP = "stop"
-counter = 0
 gravity = 5
 
 motion = STOP
 
-isJump = False
-isDawn = False
-height_jump = 0
-number_of_jumps = 0
-max_number_of_jumps = 2
-flag_jump = False
+# isJump = False
+# isDawn = False
+# height_jump = 0
+# number_of_jumps = 0
+# max_number_of_jumps = 2
+# flag_jump = False
 
 
 def load_image(name, colorkey=None):
