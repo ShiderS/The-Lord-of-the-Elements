@@ -248,6 +248,6 @@ if __name__ == '__main__':
                 terminate()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x1, y1 = event.pos
-                hero = Hero(load_image("hero_.png"), 4, 1, list_textures, gravity,
+                hero = Hero(load_image("hero_1.png"), 4, 1, list_textures, gravity,
                             list_rect_textures, list_mask_textures, list_radiations, size, screen)
                 start_level()
