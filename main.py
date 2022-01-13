@@ -1,6 +1,6 @@
-from level_characteristics import *
-from radiation import *
 from Particle import *
+from radiation import *
+import os, sys
 
 size = 1000, 800
 screen_rect = (0, 0, size[0], size[1])
@@ -19,6 +19,8 @@ RIGHT = "right"
 LEFT = "left"
 STOP = "stop"
 gravity = 5
+
+level = 'level_1'
 
 motion = STOP
 
@@ -131,25 +133,30 @@ def start_level():
     flag_jump = False
 
     # start_screen()
-    info_images = Level_characteristics(size[0], size[1], level, 'info_level.txt').render()
-    info_images_radiation = Level_characteristics(size[0], size[1], level, 'info_radiation.txt').render()
 
     # берем из класса Levels местоположение текстурки и ее расположение на холсте
-    for i in range(len(info_images[1])):
-        fullname, x, y = Levels().return_level(info_images[0], info_images[1][i], 'images')
-        # создаем спрайт
-        textures = Textures(fullname, x, y)
-        rect = Textures(fullname, x, y).get_rect()
-        mask = Textures(fullname, x, y).get_mask()
-        list_textures.append(textures)
-        list_rect_textures.append(rect)
-        list_mask_textures.append(mask)
+    os.chdir('levels/' + level + '/images')
+    for i in os.listdir():
+        if 'x' in i:
+            x, y = (int(j) for j in i[:-4].split('x'))
+            fullname = os.path.abspath(i)
+            textures = Textures(fullname, x, y)
+            rect = Textures(fullname, x, y).get_rect()
+            mask = Textures(fullname, x, y).get_mask()
+            list_textures.append(textures)
+            list_rect_textures.append(rect)
+            list_mask_textures.append(mask)
 
-    for i in range(len(info_images_radiation[1])):
-        fullname, x, y = Levels().return_level(info_images_radiation[0], info_images_radiation[1][i], 'radiations')
-        # создаем спрайт
-        radiation = Radiation(fullname, (x, y))
-        list_radiations.append(radiation)
+    os.chdir('../radiations')
+
+    for i in os.listdir():
+        if 'x' in i:
+            x, y = (int(j) for j in i[:-4].split('x'))
+            fullname = os.path.abspath(i)
+            # создаем спрайт
+            radiation = Radiation(fullname, (x, y))
+            list_radiations.append(radiation)
+    os.chdir('../../..')
 
     rect_hero = hero.return_rect()
 

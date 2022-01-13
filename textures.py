@@ -1,5 +1,4 @@
-import pygame, sys
-from levels import *
+import pygame, sys, os
 
 # настройки дисплея
 size = 1000, 800
@@ -39,7 +38,7 @@ class Textures(pygame.sprite.Sprite):
 
         # маска каменной платформы
         # self.image = Textures.image
-        self.image = load_image(fullname + '.png')
+        self.image = load_image(fullname)
         self.rect = self.image.get_rect()
         # вычисляем маску для эффективного сравнения
         self.mask = pygame.mask.from_surface(self.image)

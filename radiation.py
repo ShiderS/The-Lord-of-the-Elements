@@ -2,7 +2,6 @@ from hero import *
 from textures import *
 
 hero = Hero
-level = 'level_1'
 
 
 def load_image(fullname, colorkey=None):
@@ -28,7 +27,7 @@ class Radiation(pygame.sprite.Sprite):
         super().__init__(all_sprites)
         self.damage = 1
 
-        self.image = load_image(image + '.png')
+        self.image = load_image(image)
         self.rect = self.image.get_rect()
 
         self.rect.x = coords[0]
