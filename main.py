@@ -121,9 +121,9 @@ def create_particles(position):
 
 def start_level():
     counter = 0
-    gravity = 5
 
     motion = STOP
+    flag_animation = RIGHT
 
     isJump = False
     isDawn = False
@@ -174,8 +174,10 @@ def start_level():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_d:
                     motion = RIGHT
+                    flag_animation = RIGHT
                 if event.key == pygame.K_a:
                     motion = LEFT
+                    flag_animation = LEFT
                 if event.key == pygame.K_w:
                     isJump = True
                     number_of_jumps += 1
@@ -211,6 +213,11 @@ def start_level():
             #     camera.apply_upp(sprite)
         if isDawn:
             hero.move_dawn()
+
+        # if flag_animation == RIGHT:
+        #     hero.cut_sheet(load_image("hero_right.png"), 4, 1)
+        # else:
+        #     hero.cut_sheet(load_image("hero_left.png"), 4, 1)
 
         hp = hero.hp()
         x_hero, y_hero = hero.return_coords()
@@ -248,6 +255,6 @@ if __name__ == '__main__':
                 terminate()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x1, y1 = event.pos
-                hero = Hero(load_image("hero_1.png"), 4, 1, list_textures, gravity,
+                hero = Hero(load_image("hero_right.png"), 4, 1, list_textures, gravity,
                             list_rect_textures, list_mask_textures, list_radiations, size, screen)
                 start_level()

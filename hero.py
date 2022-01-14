@@ -45,6 +45,7 @@ class Hero(pygame.sprite.Sprite):
         self.health = 100
 
     def cut_sheet(self, sheet, columns, rows):
+        self.frames = []
         self.rect = pygame.Rect(0, 0, sheet.get_width() // columns,
                                 sheet.get_height() // rows)
         for j in range(rows):
@@ -81,6 +82,7 @@ class Hero(pygame.sprite.Sprite):
             self.rect.x -= self.movement_speed
         if self.rect.left < 0:
             self.rect.right = self.wight
+        # self.cut_sheet(load_image("hero_left.png"), 4, 1)
 
     def move_upp(self, height_jump):
         if height_jump <= self.jump_height:
