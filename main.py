@@ -1,5 +1,6 @@
 from Particle import *
 from radiation import *
+from attack import *
 import os, sys
 
 size = 1000, 800
@@ -23,6 +24,7 @@ gravity = 5
 level = 'level_1'
 
 motion = STOP
+
 
 # isJump = False
 # isDawn = False
@@ -120,17 +122,16 @@ def create_particles(position):
 
 
 def start_level():
-    counter = 0
-
     motion = STOP
-    flag_animation = RIGHT
 
     isJump = False
     isDawn = False
     height_jump = 0
     number_of_jumps = 0
     max_number_of_jumps = 2
-    flag_jump = False
+
+    view = RIGHT
+    list_mobs = []
 
     # start_screen()
 
@@ -166,6 +167,7 @@ def start_level():
     camera.update(hero)
 
     while running:
+        x_hero, y_hero = hero.return_coords()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -174,10 +176,10 @@ def start_level():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_d:
                     motion = RIGHT
-                    flag_animation = RIGHT
+                    view = RIGHT
                 if event.key == pygame.K_a:
                     motion = LEFT
-                    flag_animation = LEFT
+                    view = LEFT
                 if event.key == pygame.K_w:
                     isJump = True
                     number_of_jumps += 1
@@ -195,7 +197,8 @@ def start_level():
                     isDawn = False
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                x1, y1 = event.pos
+                attack = Long_Range_Attack(load_image('long_range_attacke_animation.png'),
+                                           4, 1, x_hero, y_hero, list_textures, list_mobs, view)
 
         if motion == RIGHT:
             hero.move_right()
@@ -214,13 +217,12 @@ def start_level():
         if isDawn:
             hero.move_dawn()
 
-        # if flag_animation == RIGHT:
+        # if view == RIGHT:
         #     hero.cut_sheet(load_image("hero_right.png"), 4, 1)
         # else:
         #     hero.cut_sheet(load_image("hero_left.png"), 4, 1)
 
         hp = hero.hp()
-        x_hero, y_hero = hero.return_coords()
 
         if hp <= 0 or y_hero >= 800:
             hp = 0
