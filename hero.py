@@ -4,8 +4,8 @@ hero_sprites = pygame.sprite.Group()
 
 
 class Hero(pygame.sprite.Sprite):
-    def __init__(self, sheet, columns, rows, list_textures, gravity,
-                 list_rect_textures, list_mask_textures, list_radiations, size, screen):
+    def __init__(self, sheet, sheet1, columns, rows, list_textures, gravity,
+                 list_rect_textures, list_mask_textures, list_radiations, size, screen, view):
         super().__init__(hero_sprites)
 
         self.list_textures = list_textures
@@ -43,6 +43,8 @@ class Hero(pygame.sprite.Sprite):
 
         self.damage = 25
         self.health = 100
+
+        self.view = view
 
     def cut_sheet(self, sheet, columns, rows):
         self.frames = []

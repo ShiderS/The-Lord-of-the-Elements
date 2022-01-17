@@ -20,10 +20,9 @@ RIGHT = "right"
 LEFT = "left"
 STOP = "stop"
 gravity = 5
+view = RIGHT
 
 level = 'level_1'
-
-motion = STOP
 
 
 # isJump = False
@@ -197,8 +196,9 @@ def start_level():
                     isDawn = False
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                attack = Long_Range_Attack(load_image('long_range_attacke_animation.png'),
-                                           4, 1, x_hero, y_hero, list_textures, list_mobs, view)
+                if event.button == 1:
+                    attack = Long_Range_Attack(load_image('long_range_attacke_animation.png'),
+                                               4, 1, x_hero, y_hero, list_textures, list_mobs, view)
 
         if motion == RIGHT:
             hero.move_right()
@@ -260,6 +260,6 @@ if __name__ == '__main__':
                 terminate()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x1, y1 = event.pos
-                hero = Hero(load_image("hero_right.png"), 4, 1, list_textures, gravity,
-                            list_rect_textures, list_mask_textures, list_radiations, size, screen)
+                hero = Hero(load_image("hero_right.png"), load_image("hero_left.png"), 4, 1, list_textures, gravity,
+                            list_rect_textures, list_mask_textures, list_radiations, size, screen, view)
                 start_level()
