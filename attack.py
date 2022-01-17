@@ -9,6 +9,8 @@ class Long_Range_Attack(pygame.sprite.Sprite):
                  list_textures, list_mobs, view,):
         super().__init__(attack_sprites)
 
+        self.counter = 0
+
         self.frames = []
         self.cut_sheet(sheet, columns, rows)
         self.cur_frame = 0
@@ -35,6 +37,13 @@ class Long_Range_Attack(pygame.sprite.Sprite):
                     frame_location, self.rect.size)))
 
     def update(self):
+        if self.counter == 10:
+            self.cur_frame = (self.cur_frame + 1) % len(self.frames)
+            self.image = self.frames[self.cur_frame]
+            self.counter = 0
+        else:
+            self.counter += 1
+
         if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures) or \
                 not any(pygame.sprite.collide_mask(self, i) for i in self.list_mobs):
-            pass
+            self.rect.x += 5

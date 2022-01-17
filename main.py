@@ -243,6 +243,9 @@ def start_level():
         hero_sprites.update()
         hero_sprites.draw(screen)
 
+        attack_sprites.update()
+        attack_sprites.draw(screen)
+
         pygame.display.flip()
         clock.tick(60)
 
