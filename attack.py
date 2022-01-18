@@ -45,9 +45,9 @@ class Long_Range_Attack(pygame.sprite.Sprite):
             self.counter += 1
 
         if (not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures) or
-                not any(pygame.sprite.collide_mask(self, i) for i in self.list_mobs)) and self.view == 'right':
+            not any(pygame.sprite.collide_mask(self, i) for i in self.list_mobs)) and self.view == 'right':
             self.rect.x += 5
 
         if (not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures) or
-                not any(pygame.sprite.collide_mask(self, i) for i in self.list_mobs)) and self.view == 'left':
+            not any(pygame.sprite.collide_mask(self, i) for i in self.list_mobs)) and self.view == 'left':
             self.rect.x -= 5

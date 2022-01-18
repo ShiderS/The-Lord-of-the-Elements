@@ -177,7 +177,6 @@ def start_level():
                     motion = RIGHT
                     view = RIGHT
                     hero.give_animation(load_image("hero_right.png"), 4, 1, x_hero, y_hero)
-
                 if event.key == pygame.K_a:
                     motion = LEFT
                     view = LEFT

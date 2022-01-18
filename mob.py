@@ -4,9 +4,10 @@ mobs_sprites = pygame.sprite.Group()
 
 
 class Mob(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, count_mobs):
         super().__init__()
-        pass
+
+        self.count_mobs = count_mobs
 
     def update(self):
         pass
