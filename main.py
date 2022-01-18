@@ -23,6 +23,7 @@ gravity = 5
 view = RIGHT
 
 level = 'level_1'
+count_mobs = 1
 
 
 # isJump = False
@@ -92,23 +93,29 @@ def terminate():
 
 
 def start_screen():
-    intro_text = ["ЗАСТАВКА", "",
-                  "Правила игры",
-                  "Если в правилах несколько строк,",
-                  "приходится выводить их построчно"]
+    # intro_text = ["ЗАСТАВКА", "",
+    #               "Правила игры",
+    #               "Если в правилах несколько строк,",
+    #               "приходится выводить их построчно"]
 
     fon = pygame.transform.scale(load_image('fon.jpg'), size)
+
+    start_button = pygame.draw.rect(screen, (0, 0, 240), (150, 90, 100, 50))
+    continue_button = pygame.draw.rect(screen, (0, 244, 0), (150, 160, 100, 50))
+    quit_button = pygame.draw.rect(screen, (244, 0, 0), (150, 230, 100, 50))
+
     screen.blit(fon, (0, 0))
-    font = pygame.font.Font(None, 30)
-    text_coord = 50
-    for line in intro_text:
-        string_rendered = font.render(line, 1, pygame.Color('white'))
-        intro_rect = string_rendered.get_rect()
-        text_coord += 10
-        intro_rect.top = text_coord
-        intro_rect.x = 10
-        text_coord += intro_rect.height
-        screen.blit(string_rendered, intro_rect)
+    # font = pygame.font.Font(None, 30)
+    # text_coord = 50
+
+    # for line in intro_text:
+    #     string_rendered = font.render(line, 1, pygame.Color('white'))
+    #     intro_rect = string_rendered.get_rect()
+    #     text_coord += 10
+    #     intro_rect.top = text_coord
+    #     intro_rect.x = 10
+    #     text_coord += intro_rect.height
+    #     screen.blit(string_rendered, intro_rect)
 
 
 def create_particles(position):
@@ -250,13 +257,23 @@ def start_level():
 if __name__ == '__main__':
     running = True
 
+    start_screen()
+
+    pygame.display.flip()
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
                 terminate()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                x1, y1 = event.pos
-                hero = Hero(load_image("hero_right.png"), 4, 1, list_textures, gravity,
-                            list_rect_textures, list_mask_textures, list_radiations, size, screen, view)
-                start_level()
+                if (pygame.mouse.get_pos()[0] >= 150 and pygame.mouse.get_pos()[1] >= 90) and \
+                        (pygame.mouse.get_pos()[0] <= 250 and pygame.mouse.get_pos()[1] <= 140):
+                    x1, y1 = event.pos
+                    hero = Hero(load_image("hero_right.png"), 4, 1, list_textures, gravity,
+                                list_rect_textures, list_mask_textures, list_radiations, size, screen, view)
+                    start_level()
+
+                if (pygame.mouse.get_pos()[0] >= 150 and pygame.mouse.get_pos()[1] >= 230) and \
+                        (pygame.mouse.get_pos()[0] <= 250 and pygame.mouse.get_pos()[1] <= 280):
+                    pygame.quit()
