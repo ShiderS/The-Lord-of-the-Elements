@@ -110,9 +110,6 @@ class Hero(pygame.sprite.Sprite):
     def melee_attack(self):
         pass
 
-    def long_range_attack(self):
-        pass
-
     def damage_fun(self, damage):
         if self.health > 0:
             self.health -= damage
