@@ -176,9 +176,12 @@ def start_level():
                 if event.key == pygame.K_d:
                     motion = RIGHT
                     view = RIGHT
+                    hero.give_animation(load_image("hero_right.png"), 4, 1, x_hero, y_hero)
+
                 if event.key == pygame.K_a:
                     motion = LEFT
                     view = LEFT
+                    hero.give_animation(load_image("hero_left.png"), 4, 1, x_hero, y_hero)
                 if event.key == pygame.K_w:
                     isJump = True
                     number_of_jumps += 1
@@ -216,11 +219,6 @@ def start_level():
             #     camera.apply_upp(sprite)
         if isDawn:
             hero.move_dawn()
-
-        # if view == RIGHT:
-        #     hero.cut_sheet(load_image("hero_right.png"), 4, 1)
-        # else:
-        #     hero.cut_sheet(load_image("hero_left.png"), 4, 1)
 
         hp = hero.hp()
 
@@ -260,6 +258,6 @@ if __name__ == '__main__':
                 terminate()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x1, y1 = event.pos
-                hero = Hero(load_image("hero_right.png"), load_image("hero_left.png"), 4, 1, list_textures, gravity,
+                hero = Hero(load_image("hero_right.png"), 4, 1, list_textures, gravity,
                             list_rect_textures, list_mask_textures, list_radiations, size, screen, view)
                 start_level()

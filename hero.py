@@ -4,7 +4,7 @@ hero_sprites = pygame.sprite.Group()
 
 
 class Hero(pygame.sprite.Sprite):
-    def __init__(self, sheet, sheet1, columns, rows, list_textures, gravity,
+    def __init__(self, sheet, columns, rows, list_textures, gravity,
                  list_rect_textures, list_mask_textures, list_radiations, size, screen, view):
         super().__init__(hero_sprites)
 
@@ -46,6 +46,14 @@ class Hero(pygame.sprite.Sprite):
 
         self.view = view
 
+    def give_animation(self, sheet, columns, rows, x, y):
+        self.frames = []
+        self.cut_sheet(sheet, columns, rows)
+        self.cur_frame = 0
+        self.image = self.frames[self.cur_frame]
+        self.rect.x = x
+        self.rect.y = y
+
     def cut_sheet(self, sheet, columns, rows):
         self.frames = []
         self.rect = pygame.Rect(0, 0, sheet.get_width() // columns,
@@ -63,6 +71,7 @@ class Hero(pygame.sprite.Sprite):
             self.counter = 0
         else:
             self.counter += 1
+
         # если ещё в небе
         if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
             self.rect = self.rect.move(0, self.gravity)
@@ -78,6 +87,7 @@ class Hero(pygame.sprite.Sprite):
             self.rect.x += self.movement_speed
         if self.rect.left > self.wight:
             self.rect.right = 0
+        self.view = 'right'
 
     def move_left(self):
         if not any(rect_textures.collidepoint(self.rect.topleft) for rect_textures in self.list_rect_textures):
@@ -85,6 +95,7 @@ class Hero(pygame.sprite.Sprite):
         if self.rect.left < 0:
             self.rect.right = self.wight
         # self.cut_sheet(load_image("hero_left.png"), 4, 1)
+        self.view = 'left'
 
     def move_upp(self, height_jump):
         if height_jump <= self.jump_height:
