@@ -5,7 +5,7 @@ attack_sprites = pygame.sprite.Group()
 
 class Long_Range_Attack(pygame.sprite.Sprite):
     def __init__(self, sheet, columns, rows, x, y,
-                 list_textures, list_mobs, view):
+                 list_textures, list_mobs, view, damage):
         super().__init__(attack_sprites)
 
         self.counter = 0
@@ -24,6 +24,8 @@ class Long_Range_Attack(pygame.sprite.Sprite):
         self.list_textures = list_textures
         self.list_mobs = list_mobs
         self.view = view
+
+        self.damage = damage
 
     def cut_sheet(self, sheet, columns, rows):
         self.frames = []
@@ -52,9 +54,7 @@ class Long_Range_Attack(pygame.sprite.Sprite):
 
         if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures) and self.view == 'right':
             self.rect.x += 5
-
         elif not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures) and self.view == 'left':
             self.rect.x -= 5
-
         else:
             self.kill()

@@ -1,6 +1,7 @@
 from Particle import *
 from radiation import *
 from attack import *
+from mob import *
 import os, sys
 
 size = 1000, 800
@@ -14,16 +15,21 @@ screen.fill((66, 66, 61))
 
 list_textures = []
 list_radiations = []
+list_mobs = []
+list_attack = []
 list_rect_textures = []
 list_mask_textures = []
+
 RIGHT = "right"
 LEFT = "left"
 STOP = "stop"
 gravity = 5
+jump_height = 100
 view = RIGHT
 
 level = 'level_1'
 count_mobs = 1
+damage_attack = 10
 
 
 # isJump = False
@@ -163,6 +169,19 @@ def start_level():
             # создаем спрайт
             radiation = Radiation(fullname, (x, y))
             list_radiations.append(radiation)
+
+    os.chdir('../mobs')
+
+    for i in os.listdir():
+        if 'x' in i:
+            x, y = (int(j) for j in i[:-4].split()[0].split('x'))
+            damage = int(i[:-4].split()[2])
+            hp = int(i[:-4].split()[1])
+            fullname = os.path.abspath(i)
+            mob = Mob(fullname, (x, y), damage, hp, list_textures, gravity, screen,
+                      list_rect_textures, list_mask_textures, list_radiations, list_attack,
+                      damage_attack, size)
+            list_mobs.append(mob)
     os.chdir('../../..')
 
     rect_hero = hero.return_rect()
@@ -207,7 +226,8 @@ def start_level():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     attack = Long_Range_Attack(load_image('long_range_attacke_animation.png'),
-                                               4, 1, x_hero, y_hero, list_textures, list_mobs, view)
+                                               4, 1, x_hero, y_hero, list_textures, list_mobs, view, damage_attack)
+                    list_attack.append(attack)
 
         if motion == RIGHT:
             hero.move_right()
@@ -233,6 +253,10 @@ def start_level():
             hero.kill()
             running = False
 
+        for mob in list_mobs:
+            if mob.hp() <= 0:
+                mob.kill()
+
         screen.fill((66, 66, 61))
 
         if hp > 0:
@@ -249,6 +273,9 @@ def start_level():
 
         attack_sprites.update()
         attack_sprites.draw(screen)
+
+        mobs_sprites.update()
+        mobs_sprites.draw(screen)
 
         pygame.display.flip()
         clock.tick(60)
