@@ -234,9 +234,17 @@ def start_level():
             # if not any(rect_textures.collidepoint(rect_hero.topright) for rect_textures in list_rect_textures):
             for sprite in all_sprites:
                 camera.apply_right(sprite)
+            for sprite in mobs_sprites:
+                camera.apply_right(sprite)
+            for sprite in attack_sprites:
+                camera.apply_right(sprite)
         if motion == LEFT:
             hero.move_left()
             for sprite in all_sprites:
+                camera.apply_left(sprite)
+            for sprite in mobs_sprites:
+                camera.apply_left(sprite)
+            for sprite in attack_sprites:
                 camera.apply_left(sprite)
         if isJump and number_of_jumps <= max_number_of_jumps:
             height_jump += 10

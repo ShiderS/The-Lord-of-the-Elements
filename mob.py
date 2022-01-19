@@ -46,8 +46,6 @@ class Mob(pygame.sprite.Sprite):
         self.list_radiations = list_radiations
         self.list_attack = list_attack
 
-        self.rect = self.image.get_rect()
-
         # вычисляем маску для эффективного сравнения
         self.mask_mob = pygame.mask.from_surface(self.image)
 
@@ -62,6 +60,9 @@ class Mob(pygame.sprite.Sprite):
         self.health = hp
 
     def update(self):
+        if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
+            self.rect = self.rect.move(0, self.gravity)
+            
         if any(pygame.sprite.collide_mask(self, i) for i in self.list_attack):
             self.health -= self.damage_attack
 
