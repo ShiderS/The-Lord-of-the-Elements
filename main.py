@@ -260,6 +260,8 @@ def start_level():
         if hp <= 0 or y_hero >= 800:
             hp = 0
             hero.kill()
+            for i in list_attack:
+                i.kill()
             running = False
 
         for i in range(len(list_mobs)):
