@@ -29,7 +29,7 @@ view = RIGHT
 
 level = 'level_1'
 count_mobs = 1
-damage_attack = 10
+damage_attack = 15
 
 
 # isJump = False
@@ -106,11 +106,12 @@ def start_screen():
 
     fon = pygame.transform.scale(load_image('fon.jpg'), size)
 
-    start_button = pygame.draw.rect(screen, (0, 0, 240), (150, 90, 100, 50))
+    screen.blit(fon, (0, 0))
+
+    start_button = pygame.draw.rect(screen, (0, 0, 240), (200, 300, 300, 70))
     continue_button = pygame.draw.rect(screen, (0, 244, 0), (150, 160, 100, 50))
     quit_button = pygame.draw.rect(screen, (244, 0, 0), (150, 230, 100, 50))
 
-    screen.blit(fon, (0, 0))
     # font = pygame.font.Font(None, 30)
     # text_coord = 50
 
@@ -261,9 +262,15 @@ def start_level():
             hero.kill()
             running = False
 
-        for mob in list_mobs:
-            if mob.hp() <= 0:
-                mob.kill()
+        for i in range(len(list_mobs)):
+            if list_mobs[i].hp() <= 0:
+                list_mobs[i].kill()
+                del list_mobs[i]
+                break
+        for i in range(len(list_attack)):
+            if list_attack[i].flag_attack():
+                del list_attack[i]
+                break
 
         screen.fill((66, 66, 61))
 
@@ -302,8 +309,8 @@ if __name__ == '__main__':
                 running = False
                 terminate()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if (pygame.mouse.get_pos()[0] >= 150 and pygame.mouse.get_pos()[1] >= 90) and \
-                        (pygame.mouse.get_pos()[0] <= 250 and pygame.mouse.get_pos()[1] <= 140):
+                if (pygame.mouse.get_pos()[0] >= 200 and pygame.mouse.get_pos()[1] >= 300) and \
+                        (pygame.mouse.get_pos()[0] <= 500 and pygame.mouse.get_pos()[1] <= 370):
                     x1, y1 = event.pos
                     hero = Hero(load_image("hero_right.png"), 4, 1, list_textures, gravity,
                                 list_rect_textures, list_mask_textures, list_radiations, size, screen, view)

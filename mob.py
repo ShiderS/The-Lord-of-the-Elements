@@ -62,7 +62,7 @@ class Mob(pygame.sprite.Sprite):
     def update(self):
         if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
             self.rect = self.rect.move(0, self.gravity)
-            
+
         if any(pygame.sprite.collide_mask(self, i) for i in self.list_attack):
             self.health -= self.damage_attack
 
@@ -95,3 +95,6 @@ class Mob(pygame.sprite.Sprite):
 
     def hp(self):
         return self.health
+
+    def damage(self):
+        self.health -= self.damage_attack
