@@ -104,13 +104,13 @@ def start_screen():
     #               "Если в правилах несколько строк,",
     #               "приходится выводить их построчно"]
 
-    fon = pygame.transform.scale(load_image('fon.jpg'), size)
+    start_button = pygame.draw.rect(screen, (0, 0, 240), (300, 190, 400, 80))
+    continue_button = pygame.draw.rect(screen, (0, 244, 0), (300, 340, 400, 80))
+    quit_button = pygame.draw.rect(screen, (244, 0, 0), (300, 490, 400, 80))
+
+    fon = pygame.transform.scale(load_image('fon.png'), size)
 
     screen.blit(fon, (0, 0))
-
-    start_button = pygame.draw.rect(screen, (0, 0, 240), (200, 300, 300, 70))
-    continue_button = pygame.draw.rect(screen, (0, 244, 0), (150, 160, 100, 50))
-    quit_button = pygame.draw.rect(screen, (244, 0, 0), (150, 230, 100, 50))
 
     # font = pygame.font.Font(None, 30)
     # text_coord = 50
@@ -132,6 +132,10 @@ def create_particles(position):
     numbers = range(-5, 6)
     for _ in range(particle_count):
         Particle(position, random.choice(numbers), random.choice(numbers))
+
+
+def continue_level():
+    pass
 
 
 def start_level():
@@ -311,13 +315,13 @@ if __name__ == '__main__':
                 running = False
                 terminate()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if (pygame.mouse.get_pos()[0] >= 200 and pygame.mouse.get_pos()[1] >= 300) and \
-                        (pygame.mouse.get_pos()[0] <= 500 and pygame.mouse.get_pos()[1] <= 370):
+                if (pygame.mouse.get_pos()[0] >= 300 and pygame.mouse.get_pos()[1] >= 190) and \
+                        (pygame.mouse.get_pos()[0] <= 700 and pygame.mouse.get_pos()[1] <= 270):
                     x1, y1 = event.pos
                     hero = Hero(load_image("hero_right.png"), 4, 1, list_textures, gravity,
                                 list_rect_textures, list_mask_textures, list_radiations, size, screen, view)
                     start_level()
 
-                if (pygame.mouse.get_pos()[0] >= 150 and pygame.mouse.get_pos()[1] >= 230) and \
-                        (pygame.mouse.get_pos()[0] <= 250 and pygame.mouse.get_pos()[1] <= 280):
+                if (pygame.mouse.get_pos()[0] >= 300 and pygame.mouse.get_pos()[1] >= 490) and \
+                        (pygame.mouse.get_pos()[0] <= 700 and pygame.mouse.get_pos()[1] <= 570):
                     pygame.quit()
