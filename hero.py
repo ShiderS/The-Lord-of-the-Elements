@@ -76,7 +76,7 @@ class Hero(pygame.sprite.Sprite):
         if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
             self.rect = self.rect.move(0, self.gravity)
         if any(pygame.sprite.collide_mask(self, i) for i in self.list_radiations):
-            self.damage_fun(0.1)
+            self.damage_fun(0.2)
 
     def move_right(self):
         # offset = (self.rect.x - self.list_rect_textures[0].x, self.rect.y - self.list_rect_textures[0].y)

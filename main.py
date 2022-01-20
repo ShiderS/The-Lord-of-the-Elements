@@ -135,7 +135,9 @@ def create_particles(position):
 
 
 def continue_level():
-    pass
+    start_button = pygame.draw.rect(screen, (0, 0, 240), (300, 190, 400, 80))
+    continue_button = pygame.draw.rect(screen, (0, 244, 0), (300, 340, 400, 80))
+    quit_button = pygame.draw.rect(screen, (244, 0, 0), (300, 490, 400, 80))
 
 
 def start_level():
@@ -266,6 +268,8 @@ def start_level():
             hero.kill()
             for i in list_attack:
                 i.kill()
+            pygame.display.flip()
+            continue_level()
             running = False
 
         for i in range(len(list_mobs)):
