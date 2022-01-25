@@ -3,6 +3,7 @@ from radiation import *
 from attack import *
 from mob import *
 import os, sys
+import random
 
 size = 1000, 800
 screen_rect = (0, 0, size[0], size[1])
@@ -23,6 +24,7 @@ list_mask_textures = []
 RIGHT = "right"
 LEFT = "left"
 STOP = "stop"
+list_move_mobs = [RIGHT, LEFT, STOP]
 gravity = 5
 jump_height = 100
 view = RIGHT
@@ -233,6 +235,14 @@ def start_level():
                     attack = Long_Range_Attack(load_image('long_range_attacke_animation.png'),
                                                4, 1, x_hero, y_hero, list_textures, list_mobs, view, damage_attack)
                     list_attack.append(attack)
+
+        for i in mobs_sprites:
+            rand = random.randint(0, 3)
+            move_mob = list_move_mobs[rand]
+            if move_mob == LEFT:
+                i.move_left()
+            if move_mob == RIGHT:
+                i.move_right()
 
         if motion == RIGHT:
             hero.move_right()
