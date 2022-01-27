@@ -4,6 +4,8 @@ from attack import *
 from mob import *
 import os, sys
 import random
+# import psyco
+# psyco.full()
 
 size = 1000, 800
 screen_rect = (0, 0, size[0], size[1])
@@ -13,6 +15,7 @@ clock = pygame.time.Clock()
 pygame.display.set_caption('The Lord of the Elements')
 screen = pygame.display.set_mode(size)
 screen.fill((66, 66, 61))
+screen.set_alpha(None)
 
 list_textures = []
 list_radiations = []
@@ -25,6 +28,7 @@ RIGHT = "right"
 LEFT = "left"
 STOP = "stop"
 list_move_mobs = [RIGHT, LEFT, STOP]
+list_move_all_mobs = []
 gravity = 5
 jump_height = 100
 view = RIGHT
@@ -143,6 +147,7 @@ def continue_level():
 
 
 def start_level():
+    mobs_timer = 0
     motion = STOP
 
     isJump = False
@@ -241,12 +246,11 @@ def start_level():
         for i in mobs_sprites:
             rand = random.randint(0, 2)
             move_mob = list_move_mobs[rand]
-            if move_mob == LEFT:
-                i.move_left()
-            if move_mob == RIGHT:
-                i.move_right()
-            if move_mob == STOP:
-                pass
+            if mobs_timer == 10:
+                i.change_move(move_mob)
+                mobs_timer = 0
+            else:
+                mobs_timer += 1
 
         if motion == RIGHT:
             hero.move_right()

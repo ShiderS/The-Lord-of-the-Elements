@@ -29,6 +29,10 @@ class Mob(pygame.sprite.Sprite):
                  list_attack, damage_attack, size):
         super().__init__(mobs_sprites)
 
+        self.RIGHT = "right"
+        self.LEFT = "left"
+        self.STOP = "stop"
+
         self.image = load_image(image)
         self.rect = self.image.get_rect()
 
@@ -37,6 +41,7 @@ class Mob(pygame.sprite.Sprite):
 
         self.wight = size[0]
         self.height = size[1]
+        self.move = self.STOP
 
         self.screen = screen
 
@@ -60,6 +65,10 @@ class Mob(pygame.sprite.Sprite):
         self.health = hp
 
     def update(self):
+        if self.move == self.RIGHT:
+            self.move_right()
+        if self.move == self.LEFT:
+            self.move_left()
         if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
             self.rect = self.rect.move(0, self.gravity)
 
@@ -88,6 +97,9 @@ class Mob(pygame.sprite.Sprite):
     def move_dawn(self):
         if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
             self.rect.y += self.dawn_speed
+
+    def change_move(self, move):
+        self.move = move
 
     def hp(self):
         return self.health
