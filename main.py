@@ -237,12 +237,14 @@ def start_level():
                     list_attack.append(attack)
 
         for i in mobs_sprites:
-            rand = random.randint(0, 3)
+            rand = random.randint(0, 2)
             move_mob = list_move_mobs[rand]
             if move_mob == LEFT:
                 i.move_left()
             if move_mob == RIGHT:
                 i.move_right()
+            if move_mob == STOP:
+                pass
 
         if motion == RIGHT:
             hero.move_right()
