@@ -279,6 +279,8 @@ def start_level():
 
         hp = hero.hp()
 
+        screen.fill((66, 66, 61))
+
         if hp <= 0 or y_hero >= 800:
             hp = 0
             hero.kill()
@@ -289,16 +291,19 @@ def start_level():
             running = False
 
         for i in range(len(list_mobs)):
-            if list_mobs[i].hp() <= 0:
+            x_mob, y_mob = list_mobs[i].return_coords()
+            hp_mob = list_mobs[i].hp()
+            if list_mobs[i].hp() <= 0 or y_mob >= 800:
                 list_mobs[i].kill()
                 del list_mobs[i]
                 break
+            else:
+                pygame.draw.rect(screen, (255, 0, 0), (x_mob, y_mob, hp_mob, 10))
+
         for i in range(len(list_attack)):
             if list_attack[i].flag_attack():
                 del list_attack[i]
                 break
-
-        screen.fill((66, 66, 61))
 
         if hp > 0:
             pygame.draw.rect(screen, (255, 0, 0), (880, 20, hp, 20))

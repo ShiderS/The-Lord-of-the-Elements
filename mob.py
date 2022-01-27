@@ -74,6 +74,8 @@ class Mob(pygame.sprite.Sprite):
 
         if any(pygame.sprite.collide_mask(self, i) for i in self.list_attack):
             self.health -= self.damage_attack
+        if any(pygame.sprite.collide_mask(self, i) for i in self.list_radiations):
+            self.damage_fun(0.2)
 
     def move_right(self):
         if any(rect_textures.collidepoint(self.rect.topright) for rect_textures in self.list_rect_textures):
@@ -106,3 +108,12 @@ class Mob(pygame.sprite.Sprite):
 
     def damage(self):
         self.health -= self.damage_attack
+
+    def return_coords(self):
+        return self.rect.x, self.rect.y
+
+    def damage_fun(self, damage):
+        if self.health > 0:
+            self.health -= damage
+        else:
+            self.kill()
