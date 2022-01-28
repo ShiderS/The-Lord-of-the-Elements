@@ -4,8 +4,7 @@ from attack import *
 from mob import *
 import os, sys
 import random
-# import psyco
-# psyco.full()
+from threading import Thread
 
 size = 1000, 800
 screen_rect = (0, 0, size[0], size[1])
@@ -33,7 +32,7 @@ gravity = 5
 jump_height = 100
 view = RIGHT
 
-level = 'level_1'
+level = 'level_2'
 count_mobs = 1
 damage_attack = 15
 
@@ -138,6 +137,10 @@ def create_particles(position):
     numbers = range(-5, 6)
     for _ in range(particle_count):
         Particle(position, random.choice(numbers), random.choice(numbers))
+
+
+def clear_map():
+    pass
 
 
 def continue_level():

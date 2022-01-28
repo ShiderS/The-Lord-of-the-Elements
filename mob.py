@@ -80,14 +80,10 @@ class Mob(pygame.sprite.Sprite):
     def move_right(self):
         if any(rect_textures.collidepoint(self.rect.topright) for rect_textures in self.list_rect_textures):
             self.rect.x += self.movement_speed
-        if self.rect.left > self.wight:
-            self.rect.right = 0
 
     def move_left(self):
         if any(rect_textures.collidepoint(self.rect.topleft) for rect_textures in self.list_rect_textures):
             self.rect.x -= self.movement_speed
-        if self.rect.left < 0:
-            self.rect.right = self.wight
         # self.cut_sheet(load_image("hero_left.png"), 4, 1)
 
     def move_upp(self, height_jump):
