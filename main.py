@@ -160,6 +160,8 @@ def start_level():
     max_number_of_jumps = 2
 
     view = RIGHT
+    view_mob = RIGHT
+    mob_see = False
     list_mobs = []
 
     # start_screen()
@@ -197,7 +199,7 @@ def start_level():
             fullname = os.path.abspath(i)
             mob = Mob(fullname, (x, y), damage, hp, list_textures, gravity, screen,
                       list_rect_textures, list_mask_textures, list_radiations, list_attack,
-                      damage_attack, size)
+                      damage_attack, size, view_mob, mob_see)
             list_mobs.append(mob)
     os.chdir('../../..')
 
@@ -296,6 +298,16 @@ def start_level():
         for i in range(len(list_mobs)):
             x_mob, y_mob = list_mobs[i].return_coords()
             hp_mob = list_mobs[i].hp()
+            if -500 <= x_mob - x_hero <= 500:
+                list_mobs[i].change_move(STOP)
+                if 10 <= x_mob - x_hero <= 500:
+                    list_mobs[i].move_left()
+                    list_mobs[i].change_view(RIGHT)
+                    list_mobs[i].change_move(STOP)
+                if -500 <= x_mob - x_hero <= -10:
+                    list_mobs[i].move_right()
+                    list_mobs[i].change_view(LEFT)
+                    list_mobs[i].change_move(STOP)
             if list_mobs[i].hp() <= 0 or y_mob >= 800:
                 list_mobs[i].kill()
                 del list_mobs[i]

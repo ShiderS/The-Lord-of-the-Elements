@@ -26,7 +26,7 @@ class Mob(pygame.sprite.Sprite):
     def __init__(self, image, coords, damage, hp,
                  list_textures, gravity, screen,
                  list_rect_textures, list_mask_textures, list_radiations,
-                 list_attack, damage_attack, size):
+                 list_attack, damage_attack, size, view_mob, mob_see):
         super().__init__(mobs_sprites)
 
         self.RIGHT = "right"
@@ -63,6 +63,9 @@ class Mob(pygame.sprite.Sprite):
 
         self.damage = damage
         self.health = hp
+
+        self.view_mob = view_mob
+        self.mob_see = mob_see
 
     def update(self):
         if self.move == self.RIGHT:
@@ -113,3 +116,12 @@ class Mob(pygame.sprite.Sprite):
             self.health -= damage
         else:
             self.kill()
+
+    def mob_see(self):
+        self.flag_attack = True
+
+    def mob_not_see(self):
+        self.flag_attack = False
+
+    def change_view(self, view_mob):
+        self.view_mob = view_mob
