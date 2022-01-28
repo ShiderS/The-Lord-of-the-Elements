@@ -5,7 +5,7 @@ attack_sprites_mobs = pygame.sprite.Group()
 
 class Attack_Mob(pygame.sprite.Sprite):
     def __init__(self, sheet, columns, rows, x, y,
-                 list_textures, mask_hero, damage, view):
+                 list_textures, hero, damage, view):
         super().__init__(attack_sprites_mobs)
 
         self.counter = 0
@@ -22,7 +22,7 @@ class Attack_Mob(pygame.sprite.Sprite):
         self.rect.y = y
 
         self.list_textures = list_textures
-        self.hero_mask = mask_hero
+        self.hero_mask = hero
         self.view = view
 
         self.damage = damage
@@ -52,8 +52,11 @@ class Attack_Mob(pygame.sprite.Sprite):
         else:
             self.kill()
 
-        # if pygame.sprite.collide_mask(self, self.hero_mask):
-        #     self.kill()
+        if pygame.sprite.collide_mask(self, self.hero_mask):
+            self.kill()
 
     def change_view(self, view):
         self.view = view
+
+    def flag_attack(self):
+        return pygame.sprite.collide_mask(self, self.hero_mask)

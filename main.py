@@ -315,7 +315,7 @@ def start_level():
                     else:
                         mob_attack = Attack_Mob(load_image('long_range_attacke_animation.png'),
                                                 4, 1, x_mob + 10, y_mob + 20, list_textures,
-                                                mask_hero, damage_attack, list_mobs[i].return_view())
+                                                hero, damage_attack, list_mobs[i].return_view())
                         list_mob_attack.append(mob_attack)
                         mobs_attack_timer = 0
                 if -400 <= x_mob - x_hero <= -10:
@@ -327,7 +327,7 @@ def start_level():
                     else:
                         mob_attack = Attack_Mob(load_image('long_range_attacke_animation.png'),
                                                 4, 1, x_mob + 10, y_mob + 20, list_textures,
-                                                mask_hero, damage_attack, list_mobs[i].return_view())
+                                                hero, damage_attack, list_mobs[i].return_view())
                         list_mob_attack.append(mob_attack)
                         mobs_attack_timer = 0
             if list_mobs[i].hp() <= 0 or y_mob >= 800:
@@ -340,6 +340,10 @@ def start_level():
         for i in range(len(list_attack)):
             if list_attack[i].flag_attack():
                 del list_attack[i]
+                break
+        for i in range(len(list_mob_attack)):
+            if list_mob_attack[i].flag_attack():
+                del list_mob_attack[i]
                 break
 
         if hp > 0:
@@ -384,7 +388,8 @@ if __name__ == '__main__':
                         (pygame.mouse.get_pos()[0] <= 700 and pygame.mouse.get_pos()[1] <= 270):
                     x1, y1 = event.pos
                     hero = Hero(load_image("hero_right.png"), 4, 1, list_textures, gravity,
-                                list_rect_textures, list_mask_textures, list_radiations, size, screen, view)
+                                list_rect_textures, list_mask_textures, list_mob_attack,
+                                list_radiations, size, screen, view)
                     start_level()
 
                 if (pygame.mouse.get_pos()[0] >= 300 and pygame.mouse.get_pos()[1] >= 490) and \

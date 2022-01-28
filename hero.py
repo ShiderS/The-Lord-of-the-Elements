@@ -5,13 +5,15 @@ hero_sprites = pygame.sprite.Group()
 
 class Hero(pygame.sprite.Sprite):
     def __init__(self, sheet, columns, rows, list_textures, gravity,
-                 list_rect_textures, list_mask_textures, list_radiations, size, screen, view):
+                 list_rect_textures, list_mask_textures, list_mob_attack,
+                 list_radiations, size, screen, view):
         super().__init__(hero_sprites)
 
         self.list_textures = list_textures
         self.list_rect_textures = list_rect_textures
         self.list_mask_textures = list_mask_textures
         self.list_radiations = list_radiations
+        self.list_mob_attack = list_mob_attack
 
         self.counter = 0
 
@@ -75,6 +77,8 @@ class Hero(pygame.sprite.Sprite):
         # если ещё в небе
         if not any(pygame.sprite.collide_mask(self, i) for i in self.list_textures):
             self.rect = self.rect.move(0, self.gravity)
+        if any(pygame.sprite.collide_mask(self, i) for i in self.list_mob_attack):
+            self.health -= 5
         if any(pygame.sprite.collide_mask(self, i) for i in self.list_radiations):
             self.damage_fun(0.2)
 
