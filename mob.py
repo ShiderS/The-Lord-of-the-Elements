@@ -64,8 +64,8 @@ class Mob(pygame.sprite.Sprite):
         self.damage = damage
         self.health = hp
 
-        self.view_mob = view_mob
         self.mob_see = mob_see
+        self.view_mob = view_mob
 
     def update(self):
         if self.move == self.RIGHT:
@@ -110,6 +110,9 @@ class Mob(pygame.sprite.Sprite):
 
     def return_coords(self):
         return self.rect.x, self.rect.y
+
+    def return_view(self):
+        return self.view_mob
 
     def damage_fun(self, damage):
         if self.health > 0:

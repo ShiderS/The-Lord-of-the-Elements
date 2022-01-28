@@ -2,6 +2,7 @@ from Particle import *
 from radiation import *
 from attack import *
 from mob import *
+from mob_attack import *
 import os, sys
 import random
 from threading import Thread
@@ -22,6 +23,7 @@ list_mobs = []
 list_attack = []
 list_rect_textures = []
 list_mask_textures = []
+list_mob_attack = []
 
 RIGHT = "right"
 LEFT = "left"
@@ -35,6 +37,7 @@ view = RIGHT
 level = 'level_2'
 count_mobs = 1
 damage_attack = 15
+damage_attack_mob = 5
 
 
 # isJump = False
@@ -150,7 +153,9 @@ def continue_level():
 
 
 def start_level():
+    mask_hero = hero.return_mask()
     mobs_timer = 0
+    mobs_attack_timer = 0
     motion = STOP
 
     isJump = False
@@ -245,7 +250,8 @@ def start_level():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     attack = Long_Range_Attack(load_image('long_range_attacke_animation.png'),
-                                               4, 1, x_hero, y_hero, list_textures, list_mobs, view, damage_attack)
+                                               4, 1, x_hero + 10, y_hero + 20, list_textures, list_mobs, view,
+                                               damage_attack)
                     list_attack.append(attack)
 
         for i in mobs_sprites:
@@ -298,16 +304,32 @@ def start_level():
         for i in range(len(list_mobs)):
             x_mob, y_mob = list_mobs[i].return_coords()
             hp_mob = list_mobs[i].hp()
-            if -500 <= x_mob - x_hero <= 500:
+            if -400 <= x_mob - x_hero <= 400:
                 list_mobs[i].change_move(STOP)
-                if 10 <= x_mob - x_hero <= 500:
+                if 10 <= x_mob - x_hero <= 400:
                     list_mobs[i].move_left()
-                    list_mobs[i].change_view(RIGHT)
-                    list_mobs[i].change_move(STOP)
-                if -500 <= x_mob - x_hero <= -10:
-                    list_mobs[i].move_right()
                     list_mobs[i].change_view(LEFT)
                     list_mobs[i].change_move(STOP)
+                    if mobs_attack_timer < 50:
+                        mobs_attack_timer += 1
+                    else:
+                        mob_attack = Attack_Mob(load_image('long_range_attacke_animation.png'),
+                                                4, 1, x_mob + 10, y_mob + 20, list_textures,
+                                                mask_hero, damage_attack, list_mobs[i].return_view())
+                        list_mob_attack.append(mob_attack)
+                        mobs_attack_timer = 0
+                if -400 <= x_mob - x_hero <= -10:
+                    list_mobs[i].move_right()
+                    list_mobs[i].change_view(RIGHT)
+                    list_mobs[i].change_move(STOP)
+                    if mobs_attack_timer < 50:
+                        mobs_attack_timer += 1
+                    else:
+                        mob_attack = Attack_Mob(load_image('long_range_attacke_animation.png'),
+                                                4, 1, x_mob + 10, y_mob + 20, list_textures,
+                                                mask_hero, damage_attack, list_mobs[i].return_view())
+                        list_mob_attack.append(mob_attack)
+                        mobs_attack_timer = 0
             if list_mobs[i].hp() <= 0 or y_mob >= 800:
                 list_mobs[i].kill()
                 del list_mobs[i]
@@ -334,6 +356,9 @@ def start_level():
 
         attack_sprites.update()
         attack_sprites.draw(screen)
+
+        attack_sprites_mobs.update()
+        attack_sprites_mobs.draw(screen)
 
         mobs_sprites.update()
         mobs_sprites.draw(screen)

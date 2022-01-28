@@ -125,6 +125,9 @@ class Hero(pygame.sprite.Sprite):
     def return_rect(self):
         return self.rect
 
+    def return_mask(self):
+        return self.mask_hero
+
     def return_flag_jump(self):
         return any(pygame.sprite.collide_mask(self, i) for i in self.list_textures)
 
