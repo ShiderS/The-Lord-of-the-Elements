@@ -153,7 +153,6 @@ def continue_level():
 
 
 def start_level():
-    mask_hero = hero.return_mask()
     mobs_timer = 0
     mobs_attack_timer = 0
     motion = STOP
@@ -210,16 +209,16 @@ def start_level():
 
     rect_hero = hero.return_rect()
 
-    running = True
+    running_level = True
 
     # изменяем ракурс камеры
     camera.update(hero)
 
-    while running:
+    while running_level:
         x_hero, y_hero = hero.return_coords()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                running_level = False
                 terminate()
 
             if event.type == pygame.KEYDOWN:
@@ -304,9 +303,9 @@ def start_level():
         for i in range(len(list_mobs)):
             x_mob, y_mob = list_mobs[i].return_coords()
             hp_mob = list_mobs[i].hp()
-            if -400 <= x_mob - x_hero <= 400:
+            if -400 <= x_mob - x_hero <= 300:
                 list_mobs[i].change_move(STOP)
-                if 10 <= x_mob - x_hero <= 400:
+                if 10 <= x_mob - x_hero <= 300:
                     list_mobs[i].move_left()
                     list_mobs[i].change_view(LEFT)
                     list_mobs[i].change_move(STOP)
@@ -318,7 +317,7 @@ def start_level():
                                                 hero, damage_attack, list_mobs[i].return_view())
                         list_mob_attack.append(mob_attack)
                         mobs_attack_timer = 0
-                if -400 <= x_mob - x_hero <= -10:
+                if -300 <= x_mob - x_hero <= -10:
                     list_mobs[i].move_right()
                     list_mobs[i].change_view(RIGHT)
                     list_mobs[i].change_move(STOP)
@@ -351,6 +350,10 @@ def start_level():
 
         if hero.return_flag_jump():
             number_of_jumps = 0
+
+        if not list_mobs:
+            running_level = False
+            continue_level()
 
         all_sprites.update()
         all_sprites.draw(screen)
