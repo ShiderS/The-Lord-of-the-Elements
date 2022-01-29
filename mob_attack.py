@@ -60,3 +60,6 @@ class Attack_Mob(pygame.sprite.Sprite):
 
     def flag_attack(self):
         return pygame.sprite.collide_mask(self, self.hero_mask)
+
+    def return_coords(self):
+        return self.rect.x, self.rect.y

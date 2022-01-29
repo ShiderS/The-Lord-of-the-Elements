@@ -24,6 +24,7 @@ list_attack = []
 list_rect_textures = []
 list_mask_textures = []
 list_mob_attack = []
+list_mob_timer = []
 
 RIGHT = "right"
 LEFT = "left"
@@ -205,6 +206,7 @@ def start_level():
                       list_rect_textures, list_mask_textures, list_radiations, list_attack,
                       damage_attack, size, view_mob, mob_see)
             list_mobs.append(mob)
+            list_mob_timer.append(0)
     os.chdir('../../..')
 
     rect_hero = hero.return_rect()
@@ -253,18 +255,19 @@ def start_level():
                                                damage_attack)
                     list_attack.append(attack)
 
+        counter_mob_timer = 0
         for i in mobs_sprites:
             rand = random.randint(0, 2)
             move_mob = list_move_mobs[rand]
-            if mobs_timer == 10:
+            if list_mob_timer[counter_mob_timer] == 25:
                 i.change_move(move_mob)
-                mobs_timer = 0
+                list_mob_timer[counter_mob_timer] = 0
             else:
-                mobs_timer += 1
+                list_mob_timer[counter_mob_timer] += 1
+            counter_mob_timer += 1
 
         if motion == RIGHT:
             hero.move_right()
-            # if not any(rect_textures.collidepoint(rect_hero.topright) for rect_textures in list_rect_textures):
             for sprite in all_sprites:
                 camera.apply_right(sprite)
             for sprite in mobs_sprites:
@@ -298,7 +301,7 @@ def start_level():
                 i.kill()
             pygame.display.flip()
             continue_level()
-            running = False
+            running_level = False
 
         for i in range(len(list_mobs)):
             x_mob, y_mob = list_mobs[i].return_coords()
@@ -337,13 +340,21 @@ def start_level():
                 pygame.draw.rect(screen, (255, 0, 0), (x_mob, y_mob, hp_mob, 10))
 
         for i in range(len(list_attack)):
+            # x_attack, y_attack = list_attack[i].return_coords()
             if list_attack[i].flag_attack():
                 del list_attack[i]
                 break
+            # elif x_attack > 1000 or x_attack < 0:
+            #     del list_attack[i]
+            #     break
         for i in range(len(list_mob_attack)):
+            # x_mob_attack, y_mob_attack = list_attack[i].return_coords()
             if list_mob_attack[i].flag_attack():
                 del list_mob_attack[i]
                 break
+            # elif x_mob_attack > 1000 or x_mob_attack < 0:
+            #     del list_mob_attack[i]
+            #     break
 
         if hp > 0:
             pygame.draw.rect(screen, (255, 0, 0), (880, 20, hp, 20))

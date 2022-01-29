@@ -64,3 +64,6 @@ class Long_Range_Attack(pygame.sprite.Sprite):
 
     def flag_attack(self):
         return any(pygame.sprite.collide_mask(self, i) for i in self.list_mobs)
+
+    def return_coords(self):
+        return self.rect.x, self.rect.y

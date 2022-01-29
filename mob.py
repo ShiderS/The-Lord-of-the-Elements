@@ -81,11 +81,11 @@ class Mob(pygame.sprite.Sprite):
             self.damage_fun(0.2)
 
     def move_right(self):
-        if any(rect_textures.collidepoint(self.rect.topright) for rect_textures in self.list_rect_textures):
+        if not any(rect_textures.collidepoint(self.rect.topright) for rect_textures in self.list_rect_textures):
             self.rect.x += self.movement_speed
 
     def move_left(self):
-        if any(rect_textures.collidepoint(self.rect.topleft) for rect_textures in self.list_rect_textures):
+        if not any(rect_textures.collidepoint(self.rect.topleft) for rect_textures in self.list_rect_textures):
             self.rect.x -= self.movement_speed
         # self.cut_sheet(load_image("hero_left.png"), 4, 1)
 
