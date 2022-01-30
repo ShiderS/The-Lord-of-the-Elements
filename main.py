@@ -395,7 +395,6 @@ if __name__ == '__main__':
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
                 terminate()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if (pygame.mouse.get_pos()[0] >= 300 and pygame.mouse.get_pos()[1] >= 190) and \
